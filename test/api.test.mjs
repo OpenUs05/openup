@@ -46,3 +46,11 @@ const k = generateVapidKeys(); const send = makePushSender({ publicKey: k.public
 let cap; globalThis.fetch = async (u, o) => { cap = o; return new Response(null, { status: 201 }); };
 assert.equal(await send({ endpoint: 'https://fcm.googleapis.com/fcm/send/x' }), true); assert.match(cap.headers.Authorization, /^vapid t=/);
 console.log('ALL TESTS PASSED');
+{
+  const R = await call('POST', '/sync/create', { doc: { k: '"x"' } });
+  const J = await call('POST', '/sync/join', { code: R.code });
+  assert.equal((await call('POST', '/sync/delete', {}, R.token)).ok, true);
+  assert.equal((await call('GET', '/sync', null, J.token)).status, 404);
+  assert.equal((await call('POST', '/sync/join', { code: R.code })).status, 400);
+  console.log('DELETE TESTS PASSED');
+}

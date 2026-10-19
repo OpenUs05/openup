@@ -136,6 +136,17 @@ export function makeApi({ store, pushSender }) {
       if (tok) await devices.delete(sha(tok));
       return { ok: true };
     },
+    // Permanently delete this phone's synced space (required by the app stores).
+    'POST /sync/delete': async (req) => {
+      const d = await device(req);
+      const { data } = await getRoom(d.roomId);
+      if (data.code) await codes.delete(data.code);
+      await rooms.delete(d.roomId);
+      await subs.delete(d.roomId);
+      const tok = (req.headers.get('authorization') || '').slice(7);
+      await devices.delete(sha(tok));
+      return { ok: true };
+    },
     // Live GPS: store the position and detect arrive/leave at pinned safe places.
     'POST /sync/location': async (req, body) => {
       const d = await device(req);

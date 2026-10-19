@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#06131f">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>OpenUS Support</title>
+<style>
+:root{--bg:#04101a;--panel:#0d2232;--line:#1e4259;--blue:#08a8ff;--red:#ff5364;--text:#f5fbff;--muted:#91a8b8;--field:#071824;color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.55}
+main{max-width:640px;margin:auto;padding:32px 18px 64px}
+.logo{font-weight:900;font-size:24px}.logo i{font-style:normal;color:var(--blue)}
+h1{font-size:30px;margin:18px 0 4px}h2{font-size:19px;margin:28px 0 8px}
+p,li{color:#dce9f2}.muted{color:var(--muted);font-size:14px}a{color:var(--blue)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin:14px 0}
+label{display:block;color:var(--muted);font-size:14px;margin-top:10px}
+input,textarea,select{width:100%;background:var(--field);border:1px solid #294a60;border-radius:12px;color:var(--text);padding:12px;font-size:16px;margin-top:4px;font-family:inherit}
+textarea{min-height:110px}
+.btn{display:inline-block;padding:13px 18px;border:0;border-radius:14px;background:linear-gradient(90deg,#04b3ff,#178cff);color:#fff;font-weight:800;font-size:15px;margin-top:12px;cursor:pointer;font-family:inherit}
+.btn.danger{background:#7d2731}
+.ok{color:#27d17f}.err{color:var(--red)}
+</style></head><body><main>
+<div class="logo">Open<i>US</i></div>
+<h1>Support</h1>
+<p class="muted">Help with OpenUS, privacy questions, and deleting your data. See also our <a href="privacy.html">Privacy Policy</a>.</p>
+
+<h2>Common questions</h2>
+<div class="card"><b>How do I connect two phones?</b><p>On the first phone, open <b>Your connection</b> and tap <b>Create sync code</b>. On the second phone, enter that code on the first screen and tap <b>Join</b>, then pick who you are.</p></div>
+<div class="card"><b>Location isn't updating.</b><p>Make sure <b>Share my location</b> is on and your phone allows location for OpenUS. The web version only updates while OpenUS is open on screen.</p></div>
+<div class="card"><b>I'm not getting notifications.</b><p>On the Location screen, under Live GPS, tap <b>Turn on</b> for notifications. On iPhone, add OpenUS to your home screen first (Share → Add to Home Screen) and open it from there.</p></div>
+
+<h2>Contact us</h2>
+<form class="card" name="openus-support" method="POST" data-netlify="true" netlify-honeypot="company" action="support.html?sent=1">
+  <input type="hidden" name="form-name" value="openus-support">
+  <p hidden><label>Leave empty <input name="company"></label></p>
+  <label for="t">Topic</label>
+  <select id="t" name="topic"><option>Help using OpenUS</option><option>Privacy question</option><option>Delete my data</option><option>Report a problem</option><option>Something else</option></select>
+  <label for="e">Your email (so we can reply)</label><input id="e" name="email" type="email" required autocomplete="email">
+  <label for="m">Message</label><textarea id="m" name="message" required maxlength="3000"></textarea>
+  <button class="btn" type="submit">Send</button>
+  <p id="sent" class="ok" hidden>Thanks. We got your message and will reply by email.</p>
+</form>
+
+<h2 id="delete">Delete my data</h2>
+<div class="card">
+  <p>This permanently deletes the synced OpenUS space for <b>you and the person you're connected with</b>: profiles, photos, boundaries, check-ins, contacts, safe places, locations and history. It can't be undone. OpenUS data saved on each phone stays until you tap <b>Start over</b> in the app.</p>
+  <p class="muted">Open this page on a phone that's synced with OpenUS. Or use the contact form above and pick "Delete my data".</p>
+  <div id="delState" class="muted"></div>
+  <button class="btn danger" id="delBtn" hidden>Delete our synced data</button>
+  <p id="delMsg"></p>
+</div>
+</main>
+<script>
+(function(){
+  if(new URLSearchParams(location.search).get('sent'))document.getElementById('sent').hidden=false;
+  let meta=null;try{meta=JSON.parse(localStorage.getItem('openusSync')||'null')}catch(e){}
+  const st=document.getElementById('delState'),b=document.getElementById('delBtn'),m=document.getElementById('delMsg');
+  if(meta&&meta.token){st.textContent='This phone is synced with OpenUS.';b.hidden=false}
+  else st.textContent='This browser isn\'t synced with OpenUS, so there is nothing to delete from here.';
+  b.onclick=async()=>{
+    if(!confirm('Permanently delete the synced OpenUS data for both of you?'))return;
+    b.disabled=true;m.className='';m.textContent='Deleting…';
+    try{const r=await fetch('/api/sync/delete',{method:'POST',headers:{authorization:'Bearer '+meta.token}});const j=await r.json().catch(()=>({}));
+      if(!r.ok)throw new Error(j.error||'Could not delete');
+      try{localStorage.removeItem('openusSync')}catch(e){}
+      m.className='ok';m.textContent='Done. Your synced OpenUS data was deleted.';b.hidden=true;st.textContent='';
+    }catch(e){m.className='err';m.textContent=e.message+'. Try again or use the contact form.';b.disabled=false}
+  };
+})();
+</script>
+</body></html>
