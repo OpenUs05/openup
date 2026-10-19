@@ -1,7 +1,7 @@
 // OpenUS service worker: offline app shell + push notifications.
-const SHELL = 'openus-shell-v2';
+const SHELL = 'openus-shell-v3';
 const AUTH = 'openus-auth';
-const FILES = ['/', '/index.html', '/manifest.webmanifest', '/icon.svg', '/icon-192.png', '/icon-512.png'];
+const FILES = ['/', '/index.html', '/openus-sync.js', '/manifest.webmanifest', '/icon.svg', '/icon-192.png', '/icon-512.png'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(SHELL).then((c) => c.addAll(FILES)).then(() => self.skipWaiting()));
@@ -24,8 +24,8 @@ self.addEventListener('fetch', (e) => {
 
 // The page hands us its session token so a push can fetch the real message text.
 self.addEventListener('message', (e) => {
-  if (e.data && e.data.type === 'token') {
-    e.waitUntil(caches.open(AUTH).then((c) => e.data.token ? c.put('/__token', new Response(e.data.token)) : c.delete('/__token')));
+  if (e.data && e.data.type === 'sync') {
+    e.waitUntil(caches.open(AUTH).then((c) => e.data.token ? c.put('/__token', new Response(JSON.stringify({ token: e.data.token, role: e.data.role || '' }))) : c.delete('/__token')));
   }
 });
 
@@ -34,8 +34,8 @@ async function latest() {
     const c = await caches.open(AUTH);
     const r = await c.match('/__token');
     if (!r) return null;
-    const token = await r.text();
-    const res = await fetch('/api/push/inbox', { method: 'POST', headers: { authorization: 'Bearer ' + token } });
+    const { token, role } = JSON.parse(await r.text());
+    const res = await fetch('/api/push/inbox', { method: 'POST', headers: { authorization: 'Bearer ' + token, 'content-type': 'application/json' }, body: JSON.stringify({ role }) });
     const j = await res.json();
     return (j.inbox || [])[0] || null;
   } catch { return null; }

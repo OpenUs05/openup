@@ -1,20 +1,11 @@
 # OpenUS
 
-Consent-based transparency app for couples. Each person has their own account on their own phone; nothing is shared until both agree.
+Your OpenUS app, unchanged, plus an add-on for **two-phone sync** and **live GPS arrive/leave notifications**.
 
-## What works
-- Email + password accounts (scrypt-hashed), 120-day sessions
-- Pairing two phones with a 6-character invite code or invite link
-- Live sync every 5 seconds: agreements (request → partner approves), check-ins and replies, trusted contacts
-- Real location sharing on a map (opt-in per person), safe places with automatic arrive/leave alerts
-- "I need help" alert, pause/leave connection, 30-day movement history
-- Push notifications (Android, desktop, and iPhone once added to the home screen)
-- Installable PWA with offline shell
+- `public/index.html` – your OpenUS_App.html, exactly as designed, plus one line at the end that loads the add-on
+- `public/index-1.html` – your earlier OpenUS file, same one-line addition
+- `public/openus-sync.js` – the add-on (sync codes, live GPS card, pinned safe places, notifications)
+- `original/` – untouched copies of both files
+- `netlify/functions/api/` – sync + GPS server (Netlify Functions + Blobs)
 
-## Layout
-- `public/` – the app (single page), service worker, manifest, icons
-- `netlify/functions/api/` – API (`/api/*`), storage in Netlify Blobs
-- `test/` – `npm test` runs API tests; `node test/dev-server.mjs` runs the app locally with in-memory storage
-
-## Environment (set in Netlify)
-`VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT` for push notifications.
+Push notifications use `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT` set in Netlify.

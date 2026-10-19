@@ -6,50 +6,47 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="OpenUS">
-<meta name="description" content="OpenUS: transparency you choose, accountability you share.">
-<link rel="manifest" href="/manifest.webmanifest">
-<link rel="icon" href="/icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="/icon-192.png">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>:root{padding-top:env(safe-area-inset-top,0px)}</style>
 <title>OpenUS</title>
+</head><body>
 <style>
+/* Layout: OpenUS phone app column (430px) on a deep navy page; full-height screens, fixed bottom tab bar. Single dark brand look. */
 :root{--page:#020910;--bg:#06131f;--panel:#0d2232;--panel2:#102a3d;--line:#1e4259;--blue:#08a8ff;--blue2:#178cff;--green:#27d17f;--red:#ff5364;--gold:#ffca4b;--text:#f5fbff;--muted:#91a8b8;--field:#071824;--fieldline:#294a60;--chip:#12344b;--ink:#04101a;color-scheme:dark}
 *{box-sizing:border-box}
-html,body{background:var(--page)}
-body{margin:0;color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:15px;line-height:1.45;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--page);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:15px;line-height:1.45}
 .app{max-width:430px;margin:auto;min-height:100vh;background:linear-gradient(#071a29,#04101a);position:relative}
-.screen{display:none;min-height:100vh;padding-top:calc(18px + env(safe-area-inset-top,0px));padding-bottom:calc(96px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.screen{display:none;min-height:100vh;padding-top:22px;padding-bottom:calc(96px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .screen.active{display:block}
 .logo{font-weight:900;font-size:26px;letter-spacing:-.01em}.logo i{font-style:normal;color:var(--blue)}
 h1,h2,h3{margin:8px 0;text-wrap:balance}
-h3{font-size:16px;margin-top:20px}
 .muted{color:var(--muted);font-size:13px}
-.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;min-height:38px}
-.back{font-size:30px;cursor:pointer;background:none;border:0;color:var(--text);padding:0 6px;line-height:1;min-width:38px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:17px;min-height:38px}
+.back{font-size:30px;cursor:pointer;background:none;border:0;color:var(--text);padding:0 6px;line-height:1}
 .card,.item{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:17px;padding:14px;margin:10px 0}
-.item{display:flex;align-items:center;gap:12px;cursor:pointer;width:100%;color:var(--text);font:inherit;text-align:left}
+.item{display:flex;align-items:center;gap:12px;cursor:pointer;width:100%;color:var(--text);font:inherit;text-align:left;text-decoration:none}
 .grow{flex:1;min-width:0}
-.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.between{justify-content:space-between}.nowrap{flex-wrap:nowrap}
+.row{display:flex;align-items:center;gap:11px;flex-wrap:wrap}.between{justify-content:space-between}.nowrap{flex-wrap:nowrap}
 .av{display:inline-grid;place-items:center;flex:none;width:54px;height:54px;border-radius:50%;border:2px solid var(--blue);font-weight:800;font-size:20px;color:var(--ink);background-size:cover;background-position:center}
-.av.lg{width:86px;height:86px;font-size:32px}.av.xl{width:100px;height:100px;font-size:38px;border-width:3px}.av.sm{width:38px;height:38px;font-size:15px}
+.av.lg{width:86px;height:86px;font-size:32px}.av.xl{width:100px;height:100px;font-size:38px;border-width:3px}.av.sm{width:40px;height:40px;font-size:16px}
 .av.a{background-color:#4fb3ef;background-image:linear-gradient(135deg,#7fd3ff,#2f8fd8)}.av.b{background-color:#f4a874;background-image:linear-gradient(135deg,#ffd27a,#f08a6c)}
 .av.photo{color:transparent}
-.btn{display:block;width:100%;padding:14px;border:0;border-radius:14px;background:linear-gradient(90deg,#04b3ff,var(--blue2));color:#fff;font-weight:800;font-size:15px;margin:6px 0;cursor:pointer;text-align:center;font-family:inherit}
-.btn:disabled{opacity:.55;cursor:default}
+.btn{display:block;width:100%;padding:14px;border:0;border-radius:14px;background:linear-gradient(90deg,#04b3ff,var(--blue2));color:#fff;font-weight:800;font-size:15px;margin:6px 0;cursor:pointer;text-align:center;text-decoration:none;font-family:inherit}
 .btn.secondary{background:transparent;border:1px solid #628197}
 .btn.danger{background:#7d2731}
-.btn.sos{background:linear-gradient(90deg,#ff5364,#d93448)}
 .btn.small{display:inline-block;width:auto;padding:9px 12px;font-size:13px;margin:4px 0}
 .btn.chosen{outline:2px solid var(--text);outline-offset:2px}
-.link{background:none;border:0;color:var(--blue);font:inherit;cursor:pointer;padding:4px 0;text-decoration:underline}
 .icon{width:39px;height:39px;border-radius:12px;background:#079ce9;display:grid;place-items:center;font-size:18px;flex:none}
 .status{font-size:12px;color:var(--green)}
 .pill{display:inline-block;padding:5px 9px;border-radius:999px;background:var(--chip);color:#bfe6fa;font-size:12px;margin:2px 4px 2px 0}
+.pill button{background:none;border:0;color:var(--muted);cursor:pointer;padding:0 0 0 6px;font:inherit}
 .alert{border-color:#833644;background:#381923}
 .pending{border-color:#8a7130;background:#322c17}
-.nav{display:none;position:fixed;z-index:800;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;padding-bottom:env(safe-area-inset-bottom,0px);background:rgba(4,15,24,.97);border-top:1px solid #18384c;grid-template-columns:repeat(5,1fr)}
+.nav{display:none;position:fixed;z-index:8;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;padding-bottom:env(safe-area-inset-bottom,0px);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px);background:rgba(4,15,24,.97);border-top:1px solid #18384c;grid-template-columns:repeat(5,1fr)}
 .nav.show{display:grid}
-.nav button{border:0;background:none;color:#90a7b7;font-size:11px;height:62px;cursor:pointer;font-family:inherit;position:relative}
+.nav button{border:0;background:none;color:#90a7b7;font-size:11px;height:64px;cursor:pointer;font-family:inherit;position:relative}
 .nav b{display:block;font-size:21px}
 .nav button.active{color:var(--blue)}
 .nav .dot{position:absolute;top:8px;left:58%;width:9px;height:9px;border-radius:50%;background:var(--red)}
@@ -57,530 +54,414 @@ h3{font-size:16px;margin-top:20px}
 .toggle:after{content:"";width:21px;height:21px;position:absolute;left:3px;top:3px;border-radius:50%;background:#fff;transition:.18s}
 .toggle.on{background:var(--green)}.toggle.on:after{left:24px}
 .setting{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0}
-.setting+.setting{border-top:1px solid #17384d}
 .notice{padding:12px;border-radius:14px;background:#0b3348;border:1px solid #176187;margin:10px 0}
 .hero{padding:26px 18px;border-radius:22px;background:radial-gradient(circle at 80% 20%,#155171,#092132 50%,#07141f)}
 .hero h1{font-size:34px;line-height:1.05}
-.profiles{display:flex;justify-content:center;gap:28px;margin:18px 0}
+.profiles{display:flex;justify-content:center;gap:28px;margin:22px 0}
 .profile{display:grid;justify-items:center;gap:6px;background:none;border:0;color:var(--text);font:inherit;cursor:pointer}
 .profile small{color:var(--blue)}
-label.muted{display:block;margin-top:8px}
 input,textarea,select{width:100%;background:var(--field);border:1px solid var(--fieldline);border-radius:12px;color:var(--text);padding:12px;font-size:16px;margin:5px 0;font-family:inherit}
 textarea{min-height:78px}
 input[type=range]{padding:0;accent-color:var(--blue)}
-.code{font-size:38px;font-weight:900;letter-spacing:.18em;text-align:center;padding:14px;border-radius:14px;background:var(--field);border:1px dashed var(--blue);margin:10px 0;font-variant-numeric:tabular-nums}
-.codein{font-size:26px;letter-spacing:.3em;text-align:center;text-transform:uppercase;font-weight:800}
+.progress{height:7px;background:#173143;border-radius:8px;overflow:hidden;margin:12px 0}
+.progress span{display:block;height:100%;background:var(--blue);transition:width .4s}
 .check{font-size:26px}
-.activity{border-left:2px solid #1e4b66;padding:2px 0 2px 13px;margin:12px 4px}
-.activity.al{border-color:var(--red)}.activity.mv{border-color:var(--green)}.activity.ci{border-color:var(--blue)}
+.activity{border-left:2px solid #1e4b66;padding-left:13px;margin:12px 4px}
 .badge{background:var(--red);border-radius:999px;padding:2px 8px;font-size:12px;font-weight:700}
-.badge.zero{display:none}
-#map{height:280px;border-radius:17px;overflow:hidden;background:#0b2232;border:1px solid var(--line)}
-.leaflet-container{background:#0b2232;font:inherit}
-.mk{width:40px;height:40px;border-radius:50%;border:3px solid #fff;display:grid;place-items:center;font-weight:800;color:var(--ink);background-size:cover;background-position:center;box-shadow:0 2px 8px rgba(0,0,0,.5)}
-.toast{display:none;position:fixed;z-index:2000;bottom:calc(78px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);width:min(390px,90%);background:#16364b;border:1px solid #2d6586;border-radius:14px;padding:12px;text-align:center}
+.badge.zero{background:var(--chip);color:var(--muted)}
+.map{height:240px;border-radius:17px;position:relative;background:linear-gradient(30deg,#163b35,#235447 45%,#173d37 45%);overflow:hidden}
+.road{position:absolute;width:130%;height:6px;background:#aab9a8;top:48%;left:-10%;transform:rotate(-25deg)}
+.pin{position:absolute;border:4px solid #fff;transition:opacity .3s,left .8s,top .8s}.pin.off{opacity:.25}
+.p1{left:18%;top:18%}.p2{right:16%;bottom:18%}
+.toast{display:none;position:fixed;z-index:20;bottom:calc(80px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);width:min(390px,90%);background:#16364b;border:1px solid #2d6586;border-radius:14px;padding:12px;text-align:center}
 .toast.show{display:block}
-.toast.err{background:#4a1d27;border-color:#9c3a4b}
+.plan{cursor:pointer}.plan.selected{border:2px solid var(--blue)}
 .center{text-align:center}
 .steps{margin:6px 0 0;padding-left:20px}.steps li{margin:4px 0}
-.spin{display:inline-block;width:14px;height:14px;border:2px solid var(--muted);border-top-color:transparent;border-radius:50%;animation:sp 1s linear infinite;vertical-align:-2px;margin-right:6px}
-@keyframes sp{to{transform:rotate(360deg)}}
-.offline{display:none;position:sticky;top:0;z-index:900;background:#5a4413;color:#ffe7a6;text-align:center;font-size:13px;padding:6px}
-.offline.show{display:block}
 :focus-visible{outline:3px solid var(--blue);outline-offset:2px}
 @media (min-width:760px){.app{border-left:1px solid #10283a;border-right:1px solid #10283a}}
-@media (prefers-reduced-motion:reduce){.toggle:after{transition:none}.spin{animation:none}}
+@media (prefers-reduced-motion:reduce){.toggle:after,.progress span,.pin{transition:none}}
 </style>
-</head><body>
+
 <div class="app">
-<div id="offline" class="offline">You're offline. Changes will send when you reconnect.</div>
 <input type="file" id="photoInput" accept="image/*" hidden>
 
-<!-- LOADING -->
-<section id="loading" class="screen active"><div class="center" style="padding-top:40vh"><div class="logo">Open<i>US</i> ∞</div><p class="muted"><span class="spin"></span>Loading…</p></div></section>
-
-<!-- AUTH -->
-<section id="auth" class="screen">
+<!-- WELCOME -->
+<section id="welcome" class="screen active">
   <div class="hero">
     <div class="logo">Open<i>US</i> ∞</div>
     <h1>Transparency you choose.</h1>
     <p>Accountability you share.</p>
-    <p class="muted">Each person has their own account on their own phone. Nothing is shared until both of you agree.</p>
+    <p class="muted">Your private OpenUS preview. Everything stays on this device; no real messages, calls or location are read.</p>
+    <button class="btn" id="installButton" hidden onclick="installOpenUS()">Install OpenUS</button>
   </div>
   <div class="card">
-    <h2 id="authTitle">Create your account</h2>
-    <form id="authForm" autocomplete="on">
-      <div id="nameWrap"><label class="muted" for="aName">Your name or nickname</label><input id="aName" maxlength="24" autocomplete="nickname" placeholder="What your partner calls you"></div>
-      <label class="muted" for="aEmail">Email</label><input id="aEmail" type="email" autocomplete="email" inputmode="email" required>
-      <label class="muted" for="aPass">Password</label><input id="aPass" type="password" autocomplete="new-password" minlength="8" required placeholder="At least 8 characters">
-      <button class="btn" id="authBtn" type="submit">Create account</button>
-    </form>
-    <p class="center muted" id="authSwitch"></p>
+    <div class="muted">Step 1 of 2</div>
+    <h2>Create your profile</h2>
+    <div class="profiles"><button class="profile" onclick="pickPhoto('a')"><span class="av xl a" data-av="a"></span><small data-photo-label="a">Add photo</small></button></div>
+    <label class="muted" for="nameA">Your name or nickname</label><input id="nameA" maxlength="20" placeholder="Your name" autocomplete="given-name">
+    <button class="btn" onclick="saveProfile('a')">Continue</button>
   </div>
 </section>
 
-<!-- PAIR -->
-<section id="pair" class="screen">
-  <div class="top"><div class="logo">Open<i>US</i></div><button class="btn small secondary" onclick="go('settings')">Account</button></div>
-  <div id="pairContent"></div>
+<!-- PARTNER SETUP -->
+<section id="partner" class="screen">
+  <div class="top"><button class="back" onclick="go('welcome')" aria-label="Back">‹</button><div class="logo">Open<i>US</i></div><span></span></div>
+  <div class="card">
+    <div class="muted">Step 2 of 2</div>
+    <h2>Your partner's profile</h2>
+    <p class="muted">Hand the phone to your partner so they can set up their own profile. Nothing is shared until you're both in.</p>
+    <div class="profiles"><button class="profile" onclick="pickPhoto('b')"><span class="av xl b" data-av="b"></span><small data-photo-label="b">Add photo</small></button></div>
+    <label class="muted" for="nameB">Partner's name or nickname</label><input id="nameB" maxlength="20" placeholder="Their name">
+    <button class="btn" onclick="saveProfile('b')">Finish setup</button>
+  </div>
+</section>
+
+<!-- ROLE -->
+<section id="role" class="screen">
+  <div class="top"><button class="back" onclick="go('welcome')" aria-label="Back">‹</button><div class="logo">Open<i>US</i></div><span></span></div>
+  <h2>Who's using OpenUS right now?</h2>
+  <p class="muted">Both profiles live on this device. Switch any time from the top of Home.</p>
+  <button class="btn secondary small" onclick="go('welcome')">Edit profiles</button>
+  <div class="card row nowrap"><span class="av lg a" data-av="a"></span><div class="grow"><h3 data-name="a"></h3><div class="status">Partner 1</div></div><button class="btn small" onclick="enter('a')">Enter</button></div>
+  <div class="card row nowrap"><span class="av lg b" data-av="b"></span><div class="grow"><h3 data-name="b"></h3><div class="status">Partner 2</div></div><button class="btn small" onclick="enter('b')">Enter</button></div>
 </section>
 
 <!-- HOME -->
 <section id="home" class="screen">
-  <div class="top"><div class="logo">Open<i>US</i></div><span id="notifBadge" class="badge zero" aria-label="New items"></span></div>
-  <div class="card row nowrap"><span class="av a" data-av="me"></span><span class="av b" data-av="partner" style="margin-left:-18px"></span><div class="grow"><b><span data-name="me"></span> &amp; <span data-name="partner"></span></b><div class="status" id="connStatus"></div></div></div>
+  <div class="top"><div class="logo">Open<i>US</i></div><button class="btn small secondary" onclick="switchRole()">Switch to <span data-other></span></button></div>
+  <div class="card row nowrap"><span class="av a" data-av="a"></span><span class="av b" data-av="b" style="margin-left:-18px"></span><div class="grow"><b><span data-name="a"></span> &amp; <span data-name="b"></span></b><div class="status" id="connStatus"></div></div><span id="notifBadge" class="badge" aria-label="Pending requests"></span></div>
   <h2 id="hello"></h2>
   <div id="pendingHome"></div>
-  <button class="item" onclick="go('invite')"><div class="icon">🔗</div><div class="grow"><b>Your connection</b><div class="muted" id="connSummary">Consent and sharing</div></div>›</button>
-  <button class="item" onclick="go('boundaries')"><div class="icon">🛡</div><div class="grow"><b>Agreements</b><div class="muted" id="bndSummary"></div></div>›</button>
-  <button class="item" onclick="go('messages')"><div class="icon">💬</div><div class="grow"><b>Shared activity</b><div class="muted" id="actSummary">Everything that happens in your connection</div></div>›</button>
-  <button class="item" onclick="go('location')"><div class="icon">📍</div><div class="grow"><b>Location &amp; safe places</b><div class="muted" id="locSummary"></div></div>›</button>
-  <button class="item" onclick="go('checkin')"><div class="icon">♡</div><div class="grow"><b>Check-in</b><div class="muted" id="ciSummary">Send and respond</div></div>›</button>
-  <button class="item" onclick="go('trusted')"><div class="icon">👥</div><div class="grow"><b>Trusted contacts</b><div class="muted" id="tcSummary"></div></div>›</button>
-  <button class="btn sos" onclick="go('sos')" style="margin-top:16px">⚠️ I need help</button>
+  <button class="item" onclick="go('invite')"><div class="icon">🔗</div><div class="grow"><b>Your connection</b><div class="muted">Consent and sharing permissions</div></div>›</button>
+  <button class="item" onclick="go('boundaries')"><div class="icon">🛡</div><div class="grow"><b>Boundaries</b><div class="muted" id="bndSummary"></div></div>›</button>
+  <button class="item" onclick="go('messages')"><div class="icon">💬</div><div class="grow"><b>Shared Activity</b><div class="muted">Messages and alerts you both agreed to share</div></div>›</button>
+  <button class="item" onclick="go('location')"><div class="icon">📍</div><div class="grow"><b>Location</b><div class="muted">Mutual permission required</div></div>›</button>
+  <button class="item" onclick="go('checkin')"><div class="icon">♡</div><div class="grow"><b>Relationship Check-in</b><div class="muted" id="ciSummary">Send and respond</div></div>›</button>
+  <button class="item" onclick="go('trusted')"><div class="icon">👥</div><div class="grow"><b>Trusted Contacts</b><div class="muted" id="tcSummary"></div></div>›</button>
 </section>
 
 <!-- CONNECTION -->
 <section id="invite" class="screen">
-  <div class="top"><button class="back" onclick="go('home')" aria-label="Back">‹</button><b>Your connection</b><span style="width:38px"></span></div>
+  <div class="top"><button class="back" onclick="go('home')" aria-label="Back">‹</button><b>Your connection</b><span></span></div>
   <div id="inviteContent"></div>
 </section>
 
-<!-- AGREEMENTS -->
+<!-- BOUNDARIES -->
 <section id="boundaries" class="screen">
-  <div class="top"><button class="back" onclick="go('home')" aria-label="Back">‹</button><b>Agreements</b><span style="width:38px"></span></div>
-  <div class="notice">These are promises you make to each other. Adding or removing one is a request until <span data-name="partner"></span> approves it on their phone.</div>
+  <div class="top"><button class="back" onclick="go('home')" aria-label="Back">‹</button><b>Shared Boundaries</b><span></span></div>
+  <div class="notice">A boundary change is a request until <span data-other></span> approves it. Nothing changes on one person's say-so.</div>
   <div id="boundaryList"></div>
-  <h3>Ask for a new agreement</h3>
+  <h3>Request a new boundary</h3>
   <input id="customBoundary" placeholder="e.g. No late-night chats with exes" maxlength="60">
   <button class="btn" onclick="requestCustom()">Send request</button>
 </section>
 
 <!-- ACTIVITY -->
 <section id="messages" class="screen">
-  <div class="top"><button class="back" onclick="go('home')" aria-label="Back">‹</button><b>Shared activity</b><span style="width:38px"></span></div>
+  <div class="top"><button class="back" onclick="go('home')" aria-label="Back">‹</button><b>Shared Activity</b><span></span></div>
   <div class="row" id="actFilters"></div>
   <div id="activityList"></div>
+  <div class="notice muted">Preview activity. In the live product, only what both partners agreed to share appears here, and alerts are a prompt to talk.</div>
 </section>
 
 <!-- LOCATION -->
 <section id="location" class="screen">
-  <div class="top"><button class="back" onclick="go('home')" aria-label="Back">‹</button><b>Location &amp; safe places</b><span style="width:38px"></span></div>
-  <div id="map" role="img" aria-label="Map of shared locations"></div>
-  <div class="muted" id="mapNote" style="margin-top:6px"></div>
+  <div class="top"><button class="back" onclick="go('home')" aria-label="Back">‹</button><b>Safe Routes &amp; Proximity</b><span></span></div>
+  <div class="hero"><h2>Help them get there safely</h2><p class="muted">Route check-ins and safe-place alerts for a partner, a child or someone who wants support. The map is simulated.</p></div>
+  <div class="map" style="margin-top:12px"><div class="road"></div><span class="av a pin p1" id="pinA" data-av="a"></span><span class="av b pin p2" id="pinB" data-av="b"></span></div>
+  <div class="card setting"><div><b>Share my location</b><div class="muted" id="locNote"></div></div><button class="toggle" id="locToggle" onclick="togglePermission('location')" aria-label="Share my location"></button></div>
+  <h3>Safe route</h3>
   <div class="card">
-    <div class="setting"><div><b>Share my location</b><div class="muted" id="locNote"></div></div><button class="toggle" data-perm="location" aria-label="Share my location"></button></div>
-    <div class="setting"><div><b>Arrive / leave alerts</b><div class="muted">Tell <span data-name="partner"></span> when I reach or leave a safe place</div></div><button class="toggle" data-perm="arrivals" aria-label="Arrive and leave alerts"></button></div>
+    <div class="row between nowrap"><div><b id="routeName">Home → destination</b><div class="muted" id="routeWho"></div></div><span class="pill" id="routeState">Not started</span></div>
+    <div class="progress"><span id="routeProgress" style="width:0%"></span></div>
+    <div class="row"><button class="btn small" id="routeButton" onclick="toggleRoute()">Start route</button><button class="btn small secondary" onclick="advanceRoute()">Next check-in</button><button class="btn small secondary" onclick="routeChange()">Simulate route change</button></div>
+    <div class="setting"><div><b>Arrival confirmation</b><div class="muted">Notify when they reach the destination</div></div><button class="toggle" data-safety="arrival" aria-label="Arrival confirmation"></button></div>
+    <div class="setting"><div><b>Route deviation prompt</b><div class="muted">Short grace period before an alert</div></div><button class="toggle" data-safety="deviation" aria-label="Route deviation prompt"></button></div>
+    <div class="muted">Off-route threshold <strong id="routeRadiusLabel">300 m</strong> · grace period 5 min</div>
+    <input type="range" id="routeRadius" min="100" max="800" step="50" value="300" aria-label="Off-route threshold">
   </div>
-  <div class="notice muted">OpenUS updates your location while the app is open on your phone. Phones pause web apps in the background, so keep OpenUS open on a trip you want tracked.</div>
-  <h3>Safe places</h3>
-  <p class="muted">Home, school, work or anywhere you choose. Stand at the place, name it and save.</p>
-  <div id="safePlaceList"></div>
+  <h3>Proximity alerts</h3>
   <div class="card">
-    <label class="muted" for="safePlaceName">Name this spot</label>
-    <input id="safePlaceName" placeholder="e.g. Home" maxlength="30">
-    <div class="muted">Alert radius <strong id="radiusLabel">200 m</strong></div>
-    <input type="range" id="placeRadius" min="75" max="1000" step="25" value="200" aria-label="Alert radius">
-    <button class="btn" onclick="addSafePlace()">Save my current spot</button>
+    <label class="muted" for="supportPerson">Person</label><select id="supportPerson"></select>
+    <div class="setting"><div><b>Arrive / leave safe places</b><div class="muted">Home, school, work or another place they choose</div></div><button class="toggle" data-safety="proximity" aria-label="Arrive or leave alerts"></button></div>
+    <div class="muted">Alert radius <strong id="proximityRadiusLabel">300 m</strong></div>
+    <input type="range" id="proxRadius" min="100" max="1000" step="50" value="300" aria-label="Alert radius">
+    <div id="safePlaceList" class="row"></div>
+    <div class="row nowrap"><input id="safePlaceName" placeholder="Add a safe place" aria-label="Add a safe place" maxlength="30"><button class="btn small" onclick="addSafePlace()">Add</button></div>
+    <div class="row"><button class="btn small secondary" onclick="proximity('Arrived at')">Simulate arrival</button><button class="btn small secondary" onclick="proximity('Left')">Simulate leaving</button></div>
   </div>
+  <div class="notice"><b>Consent and support</b><div class="muted">A guardian sets a child's alerts. Adults choose their own sharing, and anyone can pause it at any time.</div></div>
 </section>
 
 <!-- CHECK-IN -->
 <section id="checkin" class="screen">
-  <div class="top"><button class="back" onclick="go('home')" aria-label="Back">‹</button><b>Check-in</b><span style="width:38px"></span></div>
+  <div class="top"><button class="back" onclick="go('home')" aria-label="Back">‹</button><b>Check-in</b><span></span></div>
   <div class="center"><div class="check">💙</div><h2>How are we today?</h2></div>
   <div class="row" id="moods"></div>
   <textarea id="checkNote" placeholder="Add a note…" aria-label="Note" maxlength="300"></textarea>
-  <button class="btn" onclick="sendCheckin()">Send to <span data-name="partner"></span></button>
+  <button class="btn" onclick="sendCheckin()">Send to <span data-other></span></button>
   <div id="checkHistory"></div>
 </section>
 
 <!-- TRUSTED -->
 <section id="trusted" class="screen">
-  <div class="top"><button class="back" onclick="go('home')" aria-label="Back">‹</button><b>Trusted contacts</b><span style="width:38px"></span></div>
-  <p class="muted">People you both know and trust: family, close friends, a counsellor. Either of you can add or remove them.</p>
+  <div class="top"><button class="back" onclick="go('home')" aria-label="Back">‹</button><b>Trusted Contacts</b><span></span></div>
+  <p class="muted">People here never trigger boundary alerts and can receive safety alerts.</p>
   <div id="trustedList"></div>
   <h3>Add a contact</h3>
   <input id="contactName" placeholder="Name" aria-label="Contact name" maxlength="30">
-  <select id="contactType" aria-label="Contact type"><option>Family</option><option>Friend</option><option>Work</option><option>Counsellor</option><option>Caregiver</option></select>
+  <select id="contactType" aria-label="Contact type"><option>Family</option><option>Friend</option><option>Work</option><option>Caregiver</option></select>
   <button class="btn" onclick="addContact()">Add trusted contact</button>
 </section>
 
-<!-- SOS -->
-<section id="sos" class="screen">
-  <div class="top"><button class="back" onclick="go('home')" aria-label="Back">‹</button><b>Ask for help</b><span style="width:38px"></span></div>
-  <div class="card alert"><h2>Alert <span data-name="partner"></span> now</h2><p class="muted">They get a notification right away. If you share your location, they'll see where you are.</p>
-  <textarea id="sosNote" maxlength="120" placeholder="Optional: what's happening?"></textarea>
-  <button class="btn sos" onclick="sendSOS()">Send help alert</button></div>
-  <div class="notice"><b>In danger?</b> Call <a href="tel:911" style="color:var(--blue)">911</a> first. OpenUS is not an emergency service.</div>
-</section>
-
-<!-- HISTORY (Family tab) -->
+<!-- FAMILY -->
 <section id="family" class="screen">
-  <div class="top"><button class="back" onclick="go('home')" aria-label="Back">‹</button><b>Movement history</b><span style="width:38px"></span></div>
-  <div class="hero"><h2>30-day history</h2><p class="muted">Arrivals and departures at your safe places. Entries older than 30 days delete automatically.</p></div>
-  <div class="card">
-    <div class="setting"><div><b>Save movement history</b><div class="muted">For both of you</div></div><button class="toggle" data-setting="movementSaving" aria-label="Save movement history"></button></div>
-    <div class="setting"><div><b>Include my movements</b><div class="muted">Your own choice</div></div><button class="toggle" data-perm="history" aria-label="Include my movements"></button></div>
+  <div class="top"><button class="back" onclick="go('home')" aria-label="Back">‹</button><b>OpenUS Family</b><span></span></div>
+  <div class="hero"><h2>Family &amp; Support Mode</h2><p class="muted">Route and proximity tools adapted to the person's age and support plan.</p></div>
+  <div class="card"><h3>People in this support space</h3><div id="supportProfileList"></div>
+    <div class="row nowrap"><input id="supportProfileName" placeholder="Name or nickname" aria-label="Name or nickname" maxlength="30"><select id="supportProfileType" aria-label="Profile type" style="max-width:150px"><option>Child</option><option>Supported adult</option></select></div>
+    <button class="btn small" onclick="addSupportProfile()">Add person</button></div>
+  <button class="item" onclick="go('location')"><div class="icon">📍</div><div class="grow"><b>Safe routes &amp; proximity</b><div class="muted">Route check-ins, arrival alerts, safe places</div></div>›</button>
+  <div class="card"><h3>30-day movement history</h3>
+    <p class="muted">Check-ins and safe-place events, newest first. Entries older than 30 days delete automatically.</p>
+    <label class="muted" for="movementPerson">Show history for</label><select id="movementPerson" onchange="renderMovementHistory()"></select>
+    <div class="setting"><div><b>Save movement events</b><div class="muted">Pause or resume for everyone</div></div><button id="movementSaveToggle" class="toggle" onclick="toggleMovementSaving()" aria-label="Save movement events"></button></div>
+    <div id="movementConsentList"></div>
+    <div id="movementHistoryList"></div>
+    <div class="row"><button class="btn small secondary" onclick="recordMovementManual()">Log a check-in</button><button class="btn small danger" onclick="askClear()">Clear history</button></div>
+    <div id="clearConfirm" class="card pending" hidden><b>Delete all saved movement?</b><div class="row"><button class="btn small danger" onclick="clearMovementHistory()">Delete</button><button class="btn small secondary" onclick="$('clearConfirm').hidden=true">Cancel</button></div></div>
   </div>
-  <div class="row"><select id="histWho" aria-label="Show history for" style="flex:1"></select></div>
-  <div id="movementHistoryList"></div>
-  <button class="btn small danger" onclick="$('clearConfirm').hidden=false">Clear history</button>
-  <div id="clearConfirm" class="card pending" hidden><b>Delete all saved movement for both of you?</b><div class="row"><button class="btn small danger" onclick="act({type:'clearHistory'},'History deleted');$('clearConfirm').hidden=true">Delete</button><button class="btn small secondary" onclick="$('clearConfirm').hidden=true">Cancel</button></div></div>
-  <div class="notice muted">Family members with their own phones can join as more connections in a future update. For now, each OpenUS connection is two people.</div>
+  <div class="card"><h3>Make alerts easier to use</h3>
+    <div class="setting"><span>Simple arrival check-in prompts</span><button class="toggle" data-safety="simpleCheckin" aria-label="Simple arrival prompts"></button></div>
+    <div class="setting"><span>Quiet hours for non-urgent alerts</span><button class="toggle" data-safety="quietHours" aria-label="Quiet hours"></button></div>
+  </div>
 </section>
 
 <!-- MORE -->
 <section id="settings" class="screen">
-  <div class="top"><button class="back" id="settingsBack" onclick="go(S&&S.couple&&S.partner?'home':'pair')" aria-label="Back">‹</button><b>More</b><span style="width:38px"></span></div>
-  <div class="card center">
-    <button class="profile" onclick="pickPhoto()" style="margin:auto"><span class="av xl a" data-av="me"></span><small id="photoLabel">Add photo</small></button>
-    <label class="muted" for="myName">Name or nickname</label>
-    <div class="row nowrap"><input id="myName" maxlength="24"><button class="btn small" onclick="saveName()">Save</button></div>
-    <div class="muted" id="myEmail"></div>
-  </div>
-  <div class="card">
-    <div class="setting"><div><b>Notifications</b><div class="muted" id="notifNote"></div></div><button class="btn small" id="notifBtn" onclick="enableNotifications()">Turn on</button></div>
-  </div>
+  <div class="top"><button class="back" onclick="go('home')" aria-label="Back">‹</button><b>More</b><span></span></div>
   <div class="card"><b>Put OpenUS on your home screen</b>
-    <ol class="steps muted"><li><b>iPhone:</b> open this page in Safari, tap Share, then <b>Add to Home Screen</b>. Notifications on iPhone only work after this step.</li><li><b>Android:</b> in Chrome, tap ⋮ then <b>Install app</b>.</li></ol>
-    <button class="btn small" id="installButton" hidden onclick="installOpenUS()">Install now</button>
+    <ol class="steps muted"><li><b>iPhone:</b> open this link in Safari, tap Share, then Add to Home Screen.</li><li><b>Android:</b> open in Chrome, tap ⋮, then Add to Home screen or Install app.</li></ol>
+    <button class="btn small" id="installButton2" hidden onclick="installOpenUS()">Install now</button>
   </div>
-  <button class="item" onclick="go('family')"><div class="icon">🕑</div><div class="grow"><b>Movement history</b></div>›</button>
-  <button class="item" onclick="go('subscription')"><div class="icon">💳</div><div class="grow"><b>Membership</b><div class="muted">Free during the trial</div></div>›</button>
-  <button class="item" onclick="$('pwBox').hidden=!$('pwBox').hidden"><div class="icon">🔑</div><div class="grow"><b>Change password</b></div></button>
-  <div id="pwBox" class="card" hidden><input id="pwCur" type="password" placeholder="Current password" autocomplete="current-password"><input id="pwNew" type="password" placeholder="New password (8+ characters)" autocomplete="new-password"><button class="btn small" onclick="changePassword()">Update password</button></div>
-  <button class="btn secondary" onclick="signOut()">Sign out</button>
-  <button class="link" onclick="$('delBox').hidden=!$('delBox').hidden">Delete my account</button>
-  <div id="delBox" class="card alert" hidden><b>Delete your account for good?</b><div class="muted">This leaves your connection and removes your profile, photo and location. It can't be undone.</div><input id="delPw" type="password" placeholder="Your password" autocomplete="current-password"><button class="btn small danger" onclick="deleteAccount()">Delete account</button></div>
-  <p class="muted center">OpenUS trial · v2.0</p>
+  <button class="item" onclick="go('invite')"><div class="icon">🔐</div><div class="grow"><b>Consent &amp; permissions</b></div>›</button>
+  <button class="item" onclick="go('family')"><div class="icon">👪</div><div class="grow"><b>Family Mode</b></div>›</button>
+  <button class="item" onclick="go('subscription')"><div class="icon">💳</div><div class="grow"><b>Membership</b><div class="muted" id="planSummary"></div></div>›</button>
+  <button class="item" onclick="go('welcome')"><div class="icon">✎</div><div class="grow"><b>Edit profiles</b><div class="muted">Names and photos</div></div>›</button>
+  <button class="item" onclick="$('resetConfirm').hidden=false"><div class="icon">↻</div><div class="grow"><b>Start over</b><div class="muted">Clears everything on this device</div></div></button>
+  <div id="resetConfirm" class="card pending" hidden><b>Clear all OpenUS data on this device?</b><div class="muted">Both profiles, photos, requests, check-ins and history will be removed.</div><div class="row"><button class="btn small danger" onclick="resetAll()">Yes, start over</button><button class="btn small secondary" onclick="$('resetConfirm').hidden=true">Cancel</button></div></div>
+  <p class="muted center">OpenUS preview · v1.0</p>
 </section>
 
 <!-- MEMBERSHIP -->
 <section id="subscription" class="screen">
-  <div class="top"><button class="back" onclick="go('settings')" aria-label="Back">‹</button><b>Membership</b><span style="width:38px"></span></div>
+  <div class="top"><button class="back" onclick="go('settings')" aria-label="Back">‹</button><b>OpenUS Membership</b><span></span></div>
   <h2>Simple pricing. Full OpenUS.</h2>
-  <p class="muted">One subscription will cover both partners: $5 monthly or $50 yearly.</p>
-  <div class="card"><b>Couple Monthly · $5.00/month</b><div class="muted">Covers both partners</div></div>
-  <div class="card"><b>Couple Annual · $50.00/year</b><div class="muted">Covers both partners · Save $10/year</div></div>
-  <div class="notice"><b>You're in the free trial.</b> Everything is unlocked and no payment is taken. We'll let you know before paid plans start.</div>
+  <p class="muted">One subscription covers both partners: $5 monthly or $50 annually.</p>
+  <div class="card plan" data-plan="monthly"><b>Couple Monthly · $5.00/month</b><div class="muted">One subscription covers both partners</div></div>
+  <div class="card plan" data-plan="annual"><b>Couple Annual · $50.00/year</b><div class="muted">Covers both partners · Save $10/year</div></div>
+  <div class="notice"><b>Included:</b> couple connection, mutual consent controls, shared boundaries, trusted contacts, check-ins, permission-based location, activity insights and OpenUS Family.</div>
+  <button class="btn" onclick="choosePlan()">Continue</button>
+  <p class="muted center">Preview · no payment is taken</p>
 </section>
 
 <nav id="nav" class="nav">
   <button data-nav="home" onclick="go('home')"><b>⌂</b>Home<span class="dot" id="navDot" hidden></span></button>
   <button data-nav="location" onclick="go('location')"><b>⌖</b>Location</button>
   <button data-nav="checkin" onclick="go('checkin')"><b>♡</b>Check-in</button>
-  <button data-nav="messages" onclick="go('messages')"><b>☰</b>Activity</button>
+  <button data-nav="family" onclick="go('family')"><b>♟</b>Family</button>
   <button data-nav="settings" onclick="go('settings')"><b>•••</b>More</button>
 </nav>
-<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<div id="toast" class="toast" role="status"></div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
-'use strict';
+const KEY='openusAppV2';
+const store={get(){try{return JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){return null}},set(v){try{localStorage.setItem(KEY,JSON.stringify(v));return true}catch(e){return false}},clear(){try{localStorage.removeItem(KEY)}catch(e){}}};
+function freshState(){
+  const now=Date.now();
+  const s={setup:false,names:{a:'',b:''},photos:{a:null,b:null},role:'a',inviteStatus:'connected',
+    permissions:{a:{messages:true,calls:true,location:true,web:false},b:{messages:true,calls:true,location:true,web:false}},
+    boundaries:{'Sexual content':true,'Provocative language':true,'Dating apps':true,'Explicit media':true},
+    requests:[],checkins:[],contacts:[],plan:null,
+    safety:{routeActive:false,routeStep:0,offRoute:false,arrival:true,deviation:true,proximity:true,simpleCheckin:true,quietHours:true,routeRadius:300,proxRadius:300,
+      places:['Home'],profiles:[],movementSaving:true,movementConsent:{},movements:[]}};
+  return s;
+}
+function load(){const f=freshState(),g=store.get();if(!g)return f;const s=Object.assign(f,g);s.safety=Object.assign(freshState().safety,g.safety||{});s.photos=Object.assign({a:null,b:null},g.photos||{});return s}
+let state=load();
+let mood='Good',actFilter='All',curScreen='welcome',photoFor=null;
 const $=id=>document.getElementById(id);
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const ls={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}}};
-let token=ls.get('openusToken');
-let S=null;            // server state
-let cur='loading', authMode='signup', mood='Good', actFilter='All', lastV=-1;
-const params=new URLSearchParams(location.search);
-const inviteFromLink=(params.get('code')||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
+const me=()=>state.role,them=()=>state.role==='a'?'b':'a',N=k=>state.names[k]||(k==='a'?'You':'Your partner');
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+function save(){const cut=Date.now()-30*864e5;state.safety.movements=state.safety.movements.filter(x=>Date.parse(x.ts)>=cut);if(!store.set(state))toast('Could not save on this device. Storage may be full or blocked.')}
 
-// ---------- API ----------
-async function api(path,body,method){
-  const r=await fetch('/api'+path,{method:method||(body!==undefined?'POST':'GET'),headers:{'content-type':'application/json',...(token?{authorization:'Bearer '+token}:{})},body:body!==undefined?JSON.stringify(body):undefined});
-  let j={};try{j=await r.json()}catch(e){}
-  if(r.status===401&&token){setToken(null);S=null;route();throw new Error(j.error||'Please sign in again')}
-  if(!r.ok)throw new Error(j.error||'Something went wrong');
-  return j;
-}
-function setToken(t){token=t;ls.set('openusToken',t);navigator.serviceWorker?.controller?.postMessage({type:'token',token:t});navigator.serviceWorker?.ready.then(r=>r.active?.postMessage({type:'token',token:t})).catch(()=>{})}
-async function act(body,okMsg){try{S=await api('/act',body);render();if(okMsg)toast(okMsg);return true}catch(e){toast(e.message,true);return false}}
-
-// ---------- helpers ----------
-const ME=()=>S?.me, P=()=>S?.partner, C=()=>S?.couple;
-const nameOf=id=>id===ME()?.id?ME().name:id===P()?.id?P().name:'Someone';
-const isMe=id=>id===ME()?.id;
-const perms=id=>C()?.perms?.[id]||{};
-function ago(ts){const s=(Date.now()-ts)/1000;if(s<60)return'just now';if(s<3600)return Math.round(s/60)+' min ago';if(s<86400)return Math.round(s/3600)+' h ago';return new Date(ts).toLocaleDateString([],{month:'short',day:'numeric'})}
-function when(ts){return new Date(ts).toLocaleString([],{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})}
-let tt;function toast(msg,err){const e=$('toast');e.textContent=msg;e.classList.toggle('err',!!err);e.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('show'),3600)}
-function greeting(){const h=new Date().getHours();return h<12?'Good morning':h<18?'Good afternoon':'Good evening'}
-
-// ---------- navigation ----------
-const APP_SCREENS=['home','invite','boundaries','messages','location','checkin','trusted','sos','family','settings','subscription'];
 function go(id){
-  if(APP_SCREENS.includes(id)&&id!=='settings'&&id!=='subscription'&&!(C()&&P()))id=token?'pair':'auth';
-  cur=id;
+  curScreen=id;
   document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('active',x.id===id));
-  $('nav').classList.toggle('show',APP_SCREENS.includes(id)&&!!(C()&&P()));
+  $('nav').classList.toggle('show',!['welcome','partner','role'].includes(id));
   document.querySelectorAll('[data-nav]').forEach(b=>b.classList.toggle('active',b.dataset.nav===id));
+  if(id==='welcome')$('nameA').value=state.names.a;if(id==='partner')$('nameB').value=state.names.b;
   render();scrollTo(0,0);
-  if(id==='location')setTimeout(initMap,30);
-  if(id==='checkin'&&C()?.checkins?.some(c=>c.to===ME().id&&!c.seen))act({type:'seen'});
 }
-function route(){
-  if(!token){showAuth();return}
-  if(!S){go('loading');return}
-  if(!C()||!P()){go(cur==='settings'||cur==='subscription'?cur:'pair');return}
-  go(['loading','auth','pair'].includes(cur)?'home':cur);
-}
+function saveProfile(k){const el=$(k==='a'?'nameA':'nameB'),v=el.value.trim();if(!v){toast('Enter a name or nickname to continue');el.focus();return}if(k==='b'&&v.toLowerCase()===state.names.a.toLowerCase()){toast('Use a different name than your partner so you can tell profiles apart');return}state.names[k]=v;if(k==='a'){save();go(state.setup?'home':'partner');return}const first=!state.setup;state.setup=true;state.role='a';save();go(first?'home':'home');if(first)toast('Welcome to OpenUS, '+state.names.a+' & '+state.names.b)}
+function enter(r){state.role=r;save();go('home')}
+function switchRole(){state.role=them();save();toast('Now using OpenUS as '+N(me()));go(['welcome','partner','role'].includes(curScreen)?'home':curScreen)}
 
-// ---------- auth ----------
-function showAuth(){
-  const su=authMode==='signup';
-  $('authTitle').textContent=su?'Create your account':'Welcome back';
-  $('nameWrap').hidden=!su;
-  $('aPass').autocomplete=su?'new-password':'current-password';
-  $('authBtn').textContent=su?'Create account':'Sign in';
-  $('authSwitch').innerHTML=su?'Already have an account? <button class="link" onclick="authMode=\'login\';showAuth()">Sign in</button>':'New to OpenUS? <button class="link" onclick="authMode=\'signup\';showAuth()">Create an account</button>';
-  go('auth');
-}
-$('authForm').onsubmit=async e=>{
-  e.preventDefault();const b=$('authBtn');b.disabled=true;
-  try{
-    const body={email:$('aEmail').value,password:$('aPass').value};
-    if(authMode==='signup')body.name=$('aName').value;
-    const r=await api(authMode==='signup'?'/signup':'/login',body);
-    setToken(r.token);S=r.state;$('aPass').value='';
-    if(authMode==='signup')toast('Welcome to OpenUS, '+S.me.name);
-    cur='pair';route();
-    if(inviteFromLink&&!C())setTimeout(()=>{const i=$('joinCode');if(i)i.value=inviteFromLink},50);
-  }catch(err){toast(err.message,true)}finally{b.disabled=false}
-};
-async function signOut(){try{await api('/logout',{})}catch(e){}setToken(null);S=null;lastV=-1;stopLocation();authMode='login';showAuth()}
+/* photos: resized on device, stored only in this browser */
+function pickPhoto(k){photoFor=k;$('photoInput').value='';$('photoInput').click()}
+$('photoInput').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const img=new Image();img.onload=()=>{const c=document.createElement('canvas'),S=240,m=Math.min(img.width,img.height);c.width=c.height=S;c.getContext('2d').drawImage(img,(img.width-m)/2,(img.height-m)/2,m,m,0,0,S,S);state.photos[photoFor]=c.toDataURL('image/jpeg',.82);save();render();toast('Photo added for '+N(photoFor))};img.onerror=()=>toast('That file could not be read as an image');img.src=r.result};r.readAsDataURL(f)};
 
-// ---------- pairing ----------
-function renderPair(){
-  const el=$('pairContent');if(!el||!S)return;
-  const code=C()?.inviteCode;
-  const link=code?location.origin+'/?code='+code:'';
-  el.innerHTML=`<h2>Hi ${esc(ME().name)} 👋</h2><p class="muted">Connect with your partner. Each of you uses OpenUS on your own phone.</p>`+
-  (code?`<div class="card"><b>Your invite code</b><div class="code">${esc(code)}</div><p class="muted center">Have your partner download OpenUS from this link, create their own account, and enter this code. It expires ${esc(when(C().inviteExp))}.</p>
-    <button class="btn" onclick="shareInvite('${esc(link)}','${esc(code)}')">Send invite link</button>
-    <p class="muted center"><span class="spin"></span>Waiting for your partner to join…</p></div>`
-  :`<div class="card"><b>Invite your partner</b><p class="muted">Get a code to send them.</p><button class="btn" onclick="createInvite()">Create invite code</button></div>`)+
-  `<div class="card"><b>Got a code from your partner?</b><input id="joinCode" class="codein" maxlength="6" placeholder="ABC123" autocomplete="off" autocapitalize="characters" value="${esc(inviteFromLink)}"><button class="btn" onclick="joinInvite()">Connect</button></div>
-  <div class="notice muted">Connecting means you both agree to use OpenUS together. Either of you can pause or leave at any time, and each person controls what they share.</div>`;
-}
-async function createInvite(){try{S=await api('/connect/create',{});render()}catch(e){toast(e.message,true)}}
-async function joinInvite(){const code=$('joinCode').value.trim();if(code.length<6){toast('Enter the 6-character code',true);return}try{S=await api('/connect/join',{code});history.replaceState(null,'','/');toast('Connected with '+S.partner.name+' 🎉');route()}catch(e){toast(e.message,true)}}
-async function shareInvite(link,code){const text=`Join me on OpenUS. Open ${link} , create your account and enter code ${code}`;try{if(navigator.share){await navigator.share({title:'OpenUS invite',text,url:link});return}}catch(e){if(e.name==='AbortError')return}try{await navigator.clipboard.writeText(text);toast('Invite copied. Paste it in a text to your partner.')}catch(e){toast('Send your partner this code: '+code)}}
-
-// ---------- render ----------
-function setAv(e,u,cls){const p=u?.photo;e.textContent=((u?.name||'?')[0]||'?').toUpperCase();e.classList.toggle('photo',!!p);e.style.backgroundImage=p?`url(${p})`:''}
 function render(){
-  if(!S)return;
-  document.querySelectorAll('[data-name]').forEach(e=>e.textContent=(e.dataset.name==='me'?ME():P())?.name||'your partner');
-  document.querySelectorAll('[data-av]').forEach(e=>setAv(e,e.dataset.av==='me'?ME():P()));
-  $('photoLabel').textContent=ME().photo?'Change photo':'Add photo';
-  if(document.activeElement!==$('myName'))$('myName').value=ME().name;$('myEmail').textContent=S.email||'';
-  renderPair();
-  if(!C()||!P()){renderNotifState();return}
-  const paused=C().paused;
-  $('hello').textContent=greeting()+', '+ME().name;
-  $('connStatus').textContent=paused?'○ Connection paused':'● Connected by consent';$('connStatus').style.color=paused?'var(--gold)':'var(--green)';
-  renderHome();renderInvite();renderBoundaries();renderActivity();renderLocation();renderCheckins();renderContacts();renderHistory();renderToggles();renderNotifState();
+  document.querySelectorAll('[data-name]').forEach(e=>e.textContent=N(e.dataset.name));
+  document.querySelectorAll('[data-av]').forEach(e=>{const k=e.dataset.av,p=state.photos[k];e.textContent=(N(k)[0]||'?').toUpperCase();e.classList.toggle('photo',!!p);e.style.backgroundImage=p?`url(${p})`:''});
+  document.querySelectorAll('[data-photo-label]').forEach(e=>e.textContent=state.photos[e.dataset.photoLabel]?'Change photo':'Add photo');
+  document.querySelectorAll('[data-other]').forEach(e=>e.textContent=N(them()));
+  $('hello').textContent=greeting()+', '+N(me());
+  const c=state.inviteStatus==='connected';$('connStatus').textContent=c?'● Connected by consent':'○ Connection paused';$('connStatus').style.color=c?'var(--green)':'var(--gold)';
+  renderHome();renderInvite();renderBoundaries();renderActivity();renderLocation();renderCheckins();renderContacts();renderSafety();renderPlans();
 }
+function greeting(){const h=new Date().getHours();return h<12?'Good morning':h<18?'Good afternoon':'Good evening'}
 function renderHome(){
-  const c=C(),me=ME().id;
-  const reqs=c.requests.filter(r=>r.to===me&&r.status==='pending');
-  const unread=c.checkins.filter(x=>x.to===me&&!x.seen);
-  const sos=c.events.find(e=>e.type==='alert'&&!isMe(e.who)&&Date.now()-e.ts<3*3600e3);
-  const n=reqs.length+unread.length;
-  $('notifBadge').textContent=n;$('notifBadge').classList.toggle('zero',!n);$('navDot').hidden=!n;
-  $('pendingHome').innerHTML=(sos?`<div class="card alert"><b>⚠️ ${esc(sos.text)}</b><div class="muted">${ago(sos.ts)}</div><button class="btn small" onclick="go('location')">See location</button></div>`:'')
-   +(reqs.length?`<div class="card pending"><b>${esc(P().name)} sent you ${reqs.length} request${reqs.length>1?'s':''}</b><div class="muted">Nothing changes until you approve.</div><button class="btn small" onclick="go('boundaries')">Review</button></div>`:'')
-   +(unread.length?`<div class="card"><b>New check-in from ${esc(P().name)}: ${esc(unread[0].mood)}</b><button class="btn small" onclick="go('checkin')">Open</button></div>`:'');
-  $('bndSummary').textContent=`${Object.keys(c.agreements).length} active · both approve changes`;
-  $('tcSummary').textContent=c.contacts.length+' trusted contact'+(c.contacts.length===1?'':'s');
-  const pl=S.partnerLoc;$('locSummary').textContent=pl?`${P().name} shared ${ago(pl.ts)}`:`${P().name}'s location is private`;
-  const pm=perms(me);$('connSummary').textContent=`You share: ${['location','arrivals','history'].filter(k=>pm[k]).map(k=>({location:'location',arrivals:'arrival alerts',history:'history'}[k])).join(', ')||'nothing yet'}`;
-  const last=c.checkins[0];$('ciSummary').textContent=last?`Last: ${nameOf(last.from)} · ${last.mood} · ${ago(last.ts)}`:'Send and respond';
-}
-function renderToggles(){
-  const pm=perms(ME().id);
-  document.querySelectorAll('[data-perm]').forEach(el=>{el.classList.toggle('on',!!pm[el.dataset.perm]);el.setAttribute('aria-pressed',!!pm[el.dataset.perm]);el.onclick=()=>togglePerm(el.dataset.perm)});
-  document.querySelectorAll('[data-setting]').forEach(el=>{const v=!!C().settings[el.dataset.setting];el.classList.toggle('on',v);el.setAttribute('aria-pressed',v);el.onclick=()=>act({type:'setting',key:el.dataset.setting,value:!v})});
-}
-const PL={location:'Location',arrivals:'Arrive / leave alerts',history:'Movement history'};
-async function togglePerm(k){
-  const v=!perms(ME().id)[k];
-  if(k==='location'&&v){const ok=await askLocation();if(!ok)return}
-  if(await act({type:'perm',key:k,value:v},`${PL[k]} is now ${v?'shared':'private'}`)){if(k==='location')v?startLocation():stopLocation()}
+  const mine=state.requests.filter(r=>r.to===me()&&r.status==='pending');
+  const unread=state.checkins.filter(c=>c.to===me()&&!c.seen).length;
+  const b=$('notifBadge');b.textContent=mine.length+unread;b.classList.toggle('zero',!(mine.length+unread));$('navDot').hidden=!(mine.length+unread);
+  $('pendingHome').innerHTML=(mine.length?`<div class="card pending"><b>${esc(N(them()))} sent you ${mine.length} boundary request${mine.length>1?'s':''}</b><div class="muted">Nothing changes until you approve.</div><button class="btn small" onclick="go('boundaries')">Review</button></div>`:'')
+   +(unread?`<div class="card"><b>${unread} new check-in${unread>1?'s':''} from ${esc(N(them()))}</b><button class="btn small" onclick="go('checkin')">Open</button></div>`:'');
+  const on=Object.values(state.boundaries).filter(Boolean).length;$('bndSummary').textContent=`${on} active · both sides approve changes`;
+  $('tcSummary').textContent=state.contacts.length+' trusted contact'+(state.contacts.length===1?'':'s');
+  $('planSummary').textContent=state.plan?(state.plan==='monthly'?'Couple Monthly · $5/month':'Couple Annual · $50/year'):'No plan chosen';
 }
 function renderInvite(){
-  const c=C(),me=ME().id,pid=P().id,pm=perms(me),pp=perms(pid);
-  $('inviteContent').innerHTML=`<div class="card center"><div class="check">${c.paused?'⏸':'✓'}</div><h2>${c.paused?'Paused':'Connected'}</h2><p>${esc(ME().name)} and ${esc(P().name)} ${c.paused?'have sharing paused. Nothing new is shared until it resumes.':'both agreed to use OpenUS together.'}</p></div>
-  <h3>What you share with ${esc(P().name)}</h3><p class="muted">Your choices. ${esc(P().name)} sets their own.</p>
-  <div class="card">${Object.keys(PL).map(k=>`<div class="setting"><div><b>${PL[k]}</b><div class="muted">${pm[k]?'Shared':'Private'}</div></div><button class="toggle ${pm[k]?'on':''}" data-perm="${k}" aria-label="${PL[k]}"></button></div>`).join('')}</div>
-  <h3>What ${esc(P().name)} shares with you</h3><div class="row">${Object.keys(PL).map(k=>`<span class="pill">${PL[k]}: ${pp[k]?'shared':'private'}</span>`).join('')}</div>
-  <button class="btn ${c.paused?'':'secondary'}" style="margin-top:16px" onclick="act({type:'pause',value:${!c.paused}},'${c.paused?'Connection resumed':'Connection paused. Sharing stopped for both of you.'}')">${c.paused?'Resume connection':'Pause connection'}</button>
-  <button class="link" onclick="$('leaveBox').hidden=false">Leave this connection</button>
-  <div id="leaveBox" class="card alert" hidden><b>Leave your connection with ${esc(P().name)}?</b><div class="muted">All sharing stops right away. You'd need a new invite code to reconnect.</div><div class="row"><button class="btn small danger" onclick="leave()">Leave</button><button class="btn small secondary" onclick="$('leaveBox').hidden=true">Cancel</button></div></div>`;
-  renderToggles();
+  const el=$('inviteContent');
+  if(state.inviteStatus==='connected'){
+    const p=state.permissions[me()],q=state.permissions[them()],L={messages:'Messages',calls:'Calls',location:'Location',web:'Web activity'};
+    el.innerHTML=`<div class="card center"><div class="check">✓</div><h2>Connected</h2><p>${esc(N(me()))} and ${esc(N(them()))} both accepted the OpenUS connection.</p></div>
+    <h3>What you share with ${esc(N(them()))}</h3><p class="muted">Your choices. ${esc(N(them()))} sets their own.</p>
+    ${Object.entries(p).map(([k,v])=>`<div class="card setting"><div><b>${L[k]}</b><div class="muted">${v?'Shared':'Private'}</div></div><button class="toggle ${v?'on':''}" onclick="togglePermission('${k}')" aria-label="${L[k]}"></button></div>`).join('')}
+    <h3>What ${esc(N(them()))} shares with you</h3><div class="row">${Object.entries(q).map(([k,v])=>`<span class="pill">${L[k]}: ${v?'shared':'private'}</span>`).join('')}</div>
+    <button class="btn danger" onclick="disconnect()">Pause connection</button>`;
+  }else{
+    el.innerHTML=`<div class="card"><h2>Connection paused</h2><p class="muted">No sharing happens until both people accept again.</p><button class="btn" onclick="acceptInvite()">Reconnect</button></div>`;
+  }
 }
-async function leave(){try{S=await api('/connect/leave',{});stopLocation();toast('You left the connection');cur='pair';route()}catch(e){toast(e.message,true)}}
+function togglePermission(k){const p=state.permissions[me()];p[k]=!p[k];save();render();toast(`${k==='web'?'Web activity':k[0].toUpperCase()+k.slice(1)} is now ${p[k]?'shared':'private'}`)}
+function disconnect(){state.inviteStatus='pending';save();render();toast('Connection paused. Sharing stopped for both of you.')}
+function acceptInvite(){state.inviteStatus='connected';save();render();toast('Connected again')}
 
 function renderBoundaries(){
-  const c=C(),me=ME().id;
-  const pend=c.requests.filter(r=>r.status==='pending');
-  const toMe=pend.filter(r=>r.to===me),fromMe=pend.filter(r=>r.from===me);
-  let h=toMe.map(r=>`<div class="card pending"><b>${esc(nameOf(r.from))} asks to ${r.value?'add':'remove'}: “${esc(r.name)}”</b><div class="muted">${ago(r.ts)}</div><div class="row"><button class="btn small" onclick="act({type:'decide',id:'${r.id}',ok:true},'Approved. Updated for both of you.')">Approve</button><button class="btn small secondary" onclick="act({type:'decide',id:'${r.id}',ok:false},'Declined. Nothing changed.')">Decline</button></div></div>`).join('');
-  h+=fromMe.map(r=>`<div class="card"><b>Waiting on ${esc(P().name)}: ${r.value?'add':'remove'} “${esc(r.name)}”</b><div class="row"><span class="pill">Sent ${ago(r.ts)}</span><button class="link" onclick="act({type:'cancelRequest',id:'${r.id}'},'Request withdrawn')">Withdraw</button></div></div>`).join('');
-  const names=Object.keys(c.agreements);
-  h+='<h3>Active agreements</h3>'+(names.length?names.map(k=>{const p=pend.some(r=>r.name===k);return `<div class="card row nowrap"><div class="grow"><b>${esc(k)}</b><div class="muted">Active${p?' · change requested':''}</div></div>${p?'<span class="pill">Waiting</span>':`<button class="btn small secondary" data-rm="${esc(k)}">Ask to remove</button>`}</div>`}).join(''):'<div class="card muted">No agreements yet. Ask for your first one below.</div>');
-  const recent=c.requests.filter(r=>['approved','declined'].includes(r.status)).slice(-5).reverse();
-  if(recent.length)h+='<h3>Recent decisions</h3>'+recent.map(r=>`<div class="activity">${r.value?'Add':'Remove'} “${esc(r.name)}” · <b style="color:${r.status==='approved'?'var(--green)':'var(--red)'}">${r.status}</b> by ${esc(nameOf(r.to))}</div>`).join('');
-  $('boundaryList').innerHTML=h;
-  $('boundaryList').querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>act({type:'request',name:b.dataset.rm,value:false},'Request sent to '+P().name));
+  let html=Object.entries(state.boundaries).map(([k,v])=>{
+    const pend=state.requests.some(r=>r.name===k&&r.status==='pending');
+    return `<div class="card row nowrap"><div class="grow"><b>${esc(k)}</b><div class="muted">${v?'Active':'Off'}${pend?' · change requested':''}</div></div>${pend?'<span class="pill">Waiting</span>':`<button class="btn small secondary" data-b="${esc(k)}" data-v="${!v}">Request ${v?'off':'on'}</button>`}</div>`}).join('');
+  const toMe=state.requests.filter(r=>r.to===me()&&r.status==='pending'),fromMe=state.requests.filter(r=>r.from===me()&&r.status==='pending');
+  html=toMe.map(r=>`<div class="card pending"><b>${esc(N(r.from))} asks: turn “${esc(r.name)}” ${r.value?'on':'off'}</b><div class="row"><button class="btn small" onclick="decide('${r.id}',true)">Approve</button><button class="btn small secondary" onclick="decide('${r.id}',false)">Decline</button></div></div>`).join('')
+    +(fromMe.length?`<div class="notice muted">${fromMe.length} request${fromMe.length>1?'s':''} waiting on ${esc(N(them()))}. <button class="btn small" onclick="switchRole()">Switch to ${esc(N(them()))}</button></div>`:'')+html;
+  const recent=state.requests.filter(r=>r.status!=='pending').slice(-4).reverse();
+  if(recent.length)html+='<h3>Recent decisions</h3>'+recent.map(r=>`<div class="activity">“${esc(r.name)}” ${r.value?'on':'off'} · <b style="color:${r.status==='approved'?'var(--green)':'var(--red)'}">${r.status}</b> by ${esc(N(r.to))}</div>`).join('');
+  $('boundaryList').innerHTML=html;
+  $('boundaryList').querySelectorAll('[data-b]').forEach(b=>b.onclick=()=>requestBoundary(b.dataset.b,b.dataset.v==='true'));
 }
-async function requestCustom(){const x=$('customBoundary').value.trim();if(!x){toast('Type an agreement first',true);return}if(await act({type:'request',name:x,value:true},'Request sent to '+P().name))$('customBoundary').value=''}
+function requestBoundary(name,value){if(state.inviteStatus!=='connected'){toast('Reconnect first to send requests');return}state.requests.push({id:uid(),name,value,from:me(),to:them(),status:'pending'});save();render();toast('Request sent to '+N(them()))}
+function requestCustom(){const x=$('customBoundary').value.trim();if(!x){toast('Type a boundary first');return}if(state.boundaries[x]!==undefined||state.requests.some(r=>r.name===x&&r.status==='pending')){toast('That boundary already exists');return}requestBoundary(x,true);$('customBoundary').value=''}
+function decide(id,ok){const r=state.requests.find(x=>x.id===id);if(!r)return;r.status=ok?'approved':'declined';if(ok)state.boundaries[r.name]=r.value;save();render();toast(ok?'Approved. The boundary is updated for both of you.':'Declined. Nothing changed.')}
 
-const FILT={All:()=>true,Alerts:e=>e.type==='alert',Places:e=>e.type==='move'||e.type==='place','Check-ins':e=>e.type==='checkin',Changes:e=>['perm','agreement','system','contact'].includes(e.type)};
 function renderActivity(){
-  $('actFilters').innerHTML=Object.keys(FILT).map(f=>`<button class="btn small ${f===actFilter?'':'secondary'}" onclick="actFilter='${f}';renderActivity()">${f}</button>`).join('');
-  const rows=C().events.filter(FILT[actFilter]);
-  $('activityList').innerHTML=rows.length?rows.slice(0,80).map(e=>`<div class="activity ${e.type==='alert'?'al':e.type==='move'?'mv':e.type==='checkin'?'ci':''}"><b>${esc(e.text)}</b><div class="muted">${when(e.ts)}</div></div>`).join(''):'<div class="card muted">Nothing here yet.</div>';
+  const p=state.permissions[them()],t=esc(N(them()));
+  const items=[
+    {t:'Trusted',html:`<span class="av sm ${them()}" data-av="${them()}"></span><div class="grow"><b>${t}</b><div class="muted">“See you tonight ❤️”</div></div><small class="muted">9:41</small>`,need:'messages'},
+    {t:'Trusted',html:`<div class="icon">☎</div><div class="grow"><b>Call · trusted contact</b><div class="muted">12 min · normal activity</div></div><small class="muted">8:22</small>`,need:'calls'},
+    {t:'Flagged',cls:'alert',html:`<div class="icon" style="background:var(--red)">!</div><div class="grow"><b>Boundary alert · Provocative language</b><div class="muted">A message may cross a boundary you both set. Talk it through together.</div></div>`,need:'messages',boundary:'Provocative language'},
+    {t:'Flagged',cls:'alert',html:`<div class="icon" style="background:var(--red)">!</div><div class="grow"><b>Boundary alert · Dating apps</b><div class="muted">A dating app was installed.</div></div>`,need:'messages',boundary:'Dating apps'},
+    {t:'Trusted',html:`<div class="icon">🌐</div><div class="grow"><b>Web activity</b><div class="muted">No flagged sites today</div></div>`,need:'web'},
+  ].filter(i=>!i.boundary||state.boundaries[i.boundary]);
+  $('actFilters').innerHTML=['All','Flagged','Trusted'].map(f=>`<button class="btn small ${f===actFilter?'':'secondary'}" onclick="actFilter='${f}';renderActivity()">${f}</button>`).join('');
+  if(state.inviteStatus!=='connected'){$('activityList').innerHTML='<div class="card muted">Sharing is paused while the connection is paused.</div>';return}
+  const shown=items.filter(i=>(actFilter==='All'||i.t===actFilter)&&p[i.need]);
+  const hidden=['messages','calls','web'].filter(k=>!p[k]).map(k=>({messages:'messages',calls:'calls',web:'web activity'}[k]));
+  $('activityList').innerHTML=(shown.map(i=>`<div class="card row nowrap ${i.cls||''}">${i.html}</div>`).join('')||'<div class="card muted">Nothing here.</div>')
+    +(hidden.length?`<div class="card muted">${t} keeps ${hidden.join(' and ')} private, so that activity is hidden.</div>`:'');
+  document.querySelectorAll('#activityList [data-av]').forEach(e=>{const k=e.dataset.av,ph=state.photos[k];e.textContent=(N(k)[0]||'?').toUpperCase();e.classList.toggle('photo',!!ph);e.style.backgroundImage=ph?`url(${ph})`:''});
 }
 
-// ---------- location ----------
-let map,mkMe,mkP,circles=[],watchId=null,lastSent=0,lastPos=null,myPos=null;
-function initMap(){
-  if(!window.L){$('mapNote').textContent='Map could not load. Check your connection.';return}
-  if(!map){
-    map=L.map('map',{zoomControl:true,attributionControl:true}).setView([52.13,-106.67],12);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19,attribution:'© OpenStreetMap © CARTO'}).addTo(map);
-  }
-  map.invalidateSize();renderLocation(true);
+function renderLocation(){
+  const mine=state.permissions[me()].location,theirs=state.permissions[them()].location;
+  $('locToggle').classList.toggle('on',mine);
+  $('locNote').textContent=(mine?`${N(them())} can see your location`:'Your location is private')+(theirs?'':` · ${N(them())}'s is private`);
+  $('pinA').classList.toggle('off',!state.permissions.a.location||state.inviteStatus!=='connected');$('pinB').classList.toggle('off',!state.permissions.b.location||state.inviteStatus!=='connected');
 }
-function avIcon(u,col){const p=u?.photo;return L.divIcon({className:'',iconSize:[40,40],iconAnchor:[20,20],html:`<div class="mk" style="background-color:${col};${p?`background-image:url(${p});color:transparent`:''}">${esc((u?.name||'?')[0].toUpperCase())}</div>`})}
-function renderLocation(fit){
-  const pm=perms(ME().id),pl=S.partnerLoc;
-  $('locNote').textContent=pm.location?(watchId!==null?`${P().name} can see you · updating while open`:`${P().name} can see your last spot`):'Your location is private';
-  $('mapNote').textContent=pl?`${P().name} · updated ${ago(pl.ts)}${pl.acc?` · within ${pl.acc} m`:''}`:`${P().name} isn't sharing their location right now.`;
-  $('safePlaceList').innerHTML=C().places.length?C().places.map(p=>`<div class="card row nowrap"><div class="icon">🏠</div><div class="grow"><b>${esc(p.name)}</b><div class="muted">${p.radius} m radius · added by ${esc(nameOf(p.by))}</div></div><button class="btn small secondary" onclick="act({type:'placeRemove',id:'${p.id}'},'${esc(p.name)} removed')">Remove</button></div>`).join(''):'<div class="card muted">No safe places yet.</div>';
-  if(!map)return;
-  const pts=[];
-  const mine=myPos||S.myLoc;
-  if(mine&&pm.location){const ll=[mine.lat,mine.lng];pts.push(ll);mkMe?mkMe.setLatLng(ll).setIcon(avIcon(ME(),'#4fb3ef')):(mkMe=L.marker(ll,{icon:avIcon(ME(),'#4fb3ef'),title:ME().name}).addTo(map))}else if(mkMe){map.removeLayer(mkMe);mkMe=null}
-  if(pl){const ll=[pl.lat,pl.lng];pts.push(ll);mkP?mkP.setLatLng(ll).setIcon(avIcon(P(),'#f4a874')):(mkP=L.marker(ll,{icon:avIcon(P(),'#f4a874'),title:P().name}).addTo(map))}else if(mkP){map.removeLayer(mkP);mkP=null}
-  circles.forEach(c=>map.removeLayer(c));circles=C().places.map(p=>L.circle([p.lat,p.lng],{radius:p.radius,color:'#27d17f',weight:2,fillOpacity:.12}).bindTooltip(p.name).addTo(map));
-  if(fit){if(pts.length>1)map.fitBounds(pts,{padding:[50,50],maxZoom:16});else if(pts.length)map.setView(pts[0],15);else if(C().places[0])map.setView([C().places[0].lat,C().places[0].lng],14)}
+function routeWho(){const s=state.safety;return (s.profiles.find(p=>p.type==='Child')||s.profiles[0]||{name:N(them())}).name}
+const STEPS=['Left Home','Halfway','Almost there','Arrived'];
+function renderSafety(){
+  const s=state.safety;
+  $('routeWho').textContent=routeWho()+' · usual route';$('routeName').textContent=(s.places[0]||'Home')+' → '+(s.places[1]||'destination');
+  $('routeState').textContent=!s.routeActive?(s.routeStep>=4?'Arrived':'Not started'):s.offRoute?'Check-in requested':'In progress';
+  $('routeButton').textContent=s.routeActive?'End route':'Start route';
+  $('routeProgress').style.width=(s.routeActive||s.routeStep>=4?Math.min(100,s.routeStep*25):0)+'%';
+  $('routeProgress').style.background=s.offRoute?'var(--gold)':'';
+  document.querySelectorAll('[data-safety]').forEach(el=>{el.classList.toggle('on',!!s[el.dataset.safety]);el.onclick=()=>{s[el.dataset.safety]=!s[el.dataset.safety];save();renderSafety()}});
+  $('routeRadius').value=s.routeRadius;$('routeRadiusLabel').textContent=s.routeRadius+' m';
+  $('proxRadius').value=s.proxRadius;$('proximityRadiusLabel').textContent=s.proxRadius+' m';
+  $('safePlaceList').innerHTML=s.places.map((x,i)=>`<span class="pill">${esc(x)}<button onclick="removePlace(${i})" aria-label="Remove ${esc(x)}">×</button></span>`).join('');
+  const sp=$('supportPerson'),w=sp.value;sp.innerHTML=[N(them()),...s.profiles.map(x=>x.name)].map(n=>`<option>${esc(n)}</option>`).join('');if([N(them()),...s.profiles.map(x=>x.name)].includes(w))sp.value=w;
+  $('supportProfileList').innerHTML=s.profiles.length?s.profiles.map((x,i)=>`<div class="card row nowrap" style="margin:6px 0"><div class="icon">${x.type==='Child'?'•':'+'}</div><div class="grow"><b>${esc(x.name)}</b><div class="muted">${esc(x.type)}</div></div><button class="btn small secondary" onclick="removeSupport(${i})">Remove</button></div>`).join(''):'<p class="muted">No one added yet.</p>';
+  renderMovementHistory();
 }
-function askLocation(){
-  return new Promise(res=>{
-    if(!navigator.geolocation){toast('This phone does not support location sharing',true);res(false);return}
-    navigator.geolocation.getCurrentPosition(p=>{myPos={lat:p.coords.latitude,lng:p.coords.longitude,acc:p.coords.accuracy};res(true)},e=>{toast(e.code===1?'Location is blocked. Allow it for this site in your phone settings.':'Could not get your location. Try again outside or with Wi-Fi on.',true);res(false)},{enableHighAccuracy:true,timeout:15000});
-  });
-}
-function startLocation(){
-  if(watchId!==null||!navigator.geolocation||document.hidden)return;
-  watchId=navigator.geolocation.watchPosition(onPos,()=>{},{enableHighAccuracy:true,maximumAge:15000,timeout:30000});
-}
-function stopLocation(){if(watchId!==null){navigator.geolocation.clearWatch(watchId);watchId=null}}
-function dist(a,b){const R=6371000,t=Math.PI/180,x=Math.sin((b.lat-a.lat)*t/2)**2+Math.cos(a.lat*t)*Math.cos(b.lat*t)*Math.sin((b.lng-a.lng)*t/2)**2;return 2*R*Math.asin(Math.sqrt(x))}
-async function onPos(p){
-  myPos={lat:p.coords.latitude,lng:p.coords.longitude,acc:Math.round(p.coords.accuracy)};
-  const moved=lastPos?dist(lastPos,myPos):1e9;
-  if(Date.now()-lastSent<20000&&moved<40)return;
-  if(Date.now()-lastSent<90000&&moved<25)return;
-  lastSent=Date.now();lastPos=myPos;
-  try{const r=await api('/location',myPos);(r.transitions||[]).forEach(t=>toast(`You ${t.arrived?'arrived at':'left'} ${t.place}`))}catch(e){}
-  if(cur==='location')renderLocation(false);
-}
-$('placeRadius').oninput=e=>$('radiusLabel').textContent=e.target.value+' m';
-async function addSafePlace(){
-  const name=$('safePlaceName').value.trim();if(!name){toast('Name this spot first',true);return}
-  toast('Finding your location…');
-  const ok=await askLocation();if(!ok)return;
-  if(myPos.acc>150)toast(`Saved, but your location is only accurate to ${Math.round(myPos.acc)} m. Re-save outdoors for better alerts.`);
-  if(await act({type:'placeAdd',name,lat:myPos.lat,lng:myPos.lng,radius:+$('placeRadius').value},myPos.acc>150?null:name+' saved as a safe place')){$('safePlaceName').value='';renderLocation(true)}
+$('routeRadius').oninput=e=>{state.safety.routeRadius=+e.target.value;$('routeRadiusLabel').textContent=e.target.value+' m';save()};
+$('proxRadius').oninput=e=>{state.safety.proxRadius=+e.target.value;$('proximityRadiusLabel').textContent=e.target.value+' m';save()};
+function toggleRoute(){const s=state.safety;s.routeActive=!s.routeActive;s.offRoute=false;s.routeStep=s.routeActive?1:0;if(s.routeActive)recordMovement(routeWho(),'Started route');save();renderSafety();toast(s.routeActive?`Route started for ${routeWho()}`:'Route ended')}
+function advanceRoute(){const s=state.safety;if(!s.routeActive){toast('Start the route first');return}s.offRoute=false;s.routeStep++;const ev=STEPS[Math.min(s.routeStep,4)-1];recordMovement(routeWho(),ev);if(s.routeStep>=4){s.routeActive=false;save();renderSafety();toast(s.arrival?`${routeWho()} arrived safely. Arrival confirmation sent.`:`${routeWho()} arrived. Arrival confirmations are off.`);return}save();renderSafety();toast(`${routeWho()}: ${ev}`)}
+function routeChange(){const s=state.safety;if(!s.routeActive){toast('Start the route first');return}s.offRoute=true;recordMovement(routeWho(),'Left the usual route');save();renderSafety();toast(s.deviation?`${routeWho()} left the route. After ${s.routeRadius} m and 5 minutes you'd get a gentle check-in prompt.`:'Route deviation prompts are off, so no alert was sent.')}
+function proximity(verb){const s=state.safety,person=$('supportPerson').value,place=s.places[0]||'a safe place';if(!s.proximity){toast('Arrive / leave alerts are off');return}recordMovement(person,`${verb} ${place}`);save();renderSafety();toast(`Alert: ${person} ${verb.toLowerCase()} ${place}`)}
+function addSafePlace(){const v=$('safePlaceName').value.trim();if(!v){toast('Type a place name first');return}if(state.safety.places.includes(v)){toast('That place is already saved');return}state.safety.places.push(v);$('safePlaceName').value='';save();renderSafety();toast(v+' saved as a safe place')}
+function removePlace(i){const n=state.safety.places.splice(i,1)[0];save();renderSafety();toast(n+' removed')}
+function addSupportProfile(){const s=state.safety,name=$('supportProfileName').value.trim();if(!name){toast('Type a name or nickname');return}if(s.profiles.some(p=>p.name.toLowerCase()===name.toLowerCase())){toast('That person is already here');return}s.profiles.push({name,type:$('supportProfileType').value});$('supportProfileName').value='';save();renderSafety();toast(name+' added')}
+function removeSupport(i){const n=state.safety.profiles.splice(i,1)[0].name;save();renderSafety();toast(n+' removed')}
+function recordMovement(person,event){const s=state.safety;if(!s.movementSaving||s.movementConsent[person]===false)return;s.movements.unshift({person,place:s.places[0]||'Saved place',event,ts:new Date().toISOString(),sample:false})}
+function recordMovementManual(){const sel=$('movementPerson').value,person=sel!=='all'?sel:state.safety.profiles[0]?.name;if(!person){toast('Add a person first');return}const n=state.safety.movements.length;recordMovement(person,'Check-in');save();renderSafety();toast(state.safety.movements.length>n?'Check-in saved for '+person:'Saving is paused for '+person)}
+function toggleMovementSaving(){const s=state.safety;s.movementSaving=!s.movementSaving;save();renderSafety();toast(s.movementSaving?'Movement saving is on':'Movement saving is paused')}
+function toggleProfileMovement(i){const s=state.safety,n=s.profiles[i].name;s.movementConsent[n]=s.movementConsent[n]===false;save();renderSafety();toast(`History for ${n} is ${s.movementConsent[n]===false?'off':'on'}`)}
+function askClear(){$('clearConfirm').hidden=false}
+function clearMovementHistory(){state.safety.movements=[];$('clearConfirm').hidden=true;save();renderSafety();toast('Movement history deleted')}
+function renderMovementHistory(){
+  const s=state.safety,sel=$('movementPerson'),w=sel.value||'all';
+  sel.innerHTML='<option value="all">Everyone</option>'+s.profiles.map(p=>`<option>${esc(p.name)}</option>`).join('');
+  sel.value=s.profiles.some(p=>p.name===w)?w:'all';
+  $('movementSaveToggle').classList.toggle('on',s.movementSaving);
+  $('movementConsentList').innerHTML=s.profiles.length?'<p class="muted"><b>Per-person permission.</b> A guardian manages a child\'s setting; each adult chooses their own.</p>'+s.profiles.map((p,i)=>`<div class="setting"><span>${esc(p.name)}</span><button class="toggle ${s.movementConsent[p.name]===false?'':'on'}" onclick="toggleProfileMovement(${i})" aria-label="History for ${esc(p.name)}"></button></div>`).join(''):'';
+  const rows=s.movements.filter(x=>sel.value==='all'||x.person===sel.value).sort((a,b)=>Date.parse(b.ts)-Date.parse(a.ts));
+  $('movementHistoryList').innerHTML=rows.length?rows.slice(0,15).map(x=>`<div class="activity"><b>${esc(x.person)}</b> · ${esc(x.event)}<div class="muted">${esc(x.place)} · ${new Date(x.ts).toLocaleString([],{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})}${x.sample?' · example':''}</div></div>`).join(''):'<p class="muted">No saved movement in the last 30 days.</p>';
 }
 
-// ---------- check-ins ----------
 function renderCheckins(){
   $('moods').innerHTML=[['😀','Great'],['🙂','Good'],['😟','Stressed'],['💬','Need to talk']].map(([e,m])=>`<button class="btn small ${mood===m?'chosen':'secondary'}" onclick="mood='${m}';renderCheckins()">${e} ${m}</button>`).join('');
-  const me=ME().id,list=C().checkins.slice(0,20);
-  $('checkHistory').innerHTML=list.length?'<h3>Recent</h3>'+list.map(c=>`<div class="card"><div class="row between nowrap"><b>${esc(nameOf(c.from))} → ${esc(nameOf(c.to))}: ${esc(c.mood)}</b>${c.to===me&&!c.seen?'<span class="pill">New</span>':''}</div>${c.note?`<div>${esc(c.note)}</div>`:''}<div class="muted">${when(c.ts)}</div>${c.to===me&&!c.reply?`<div class="row">${['❤️','🤗','Let\'s talk'].map(x=>`<button class="btn small secondary" onclick="act({type:'checkinReply',id:'${c.id}',reply:'${x.replace("'","\\'")}'},'Sent to ${esc(nameOf(c.from))}')">${esc(x)}</button>`).join('')}</div>`:''}${c.reply?`<div class="muted">${esc(nameOf(c.to))} replied ${esc(c.reply)}</div>`:''}</div>`).join(''):'<p class="muted center">No check-ins yet. Send the first one.</p>';
+  const list=state.checkins.slice(0,8);
+  $('checkHistory').innerHTML=list.length?'<h3>Recent</h3>'+list.map(c=>`<div class="card"><div class="row between nowrap"><b>${esc(N(c.from))} → ${esc(N(c.to))}: ${esc(c.mood)}</b>${c.to===me()&&!c.seen?'<span class="pill">New</span>':''}</div>${c.note?`<div>${esc(c.note)}</div>`:''}<div class="muted">${new Date(c.ts).toLocaleString([],{weekday:'short',hour:'numeric',minute:'2-digit'})}</div>${c.to===me()&&!c.reply?`<button class="btn small secondary" onclick="replyCheckin('${c.id}')">Send a ❤️ back</button>`:''}${c.reply?`<div class="muted">${esc(N(c.to))} sent ❤️ back</div>`:''}</div>`).join(''):'<p class="muted center">No check-ins yet. Send the first one.</p>';
+  if(curScreen==='checkin'){let ch=false;state.checkins.forEach(c=>{if(c.to===me()&&!c.seen){c.seen=true;ch=true}});if(ch){save();setTimeout(renderHome,0)}}
 }
-async function sendCheckin(){if(await act({type:'checkin',mood,note:$('checkNote').value.trim()},'Check-in sent to '+P().name))$('checkNote').value=''}
-async function sendSOS(){
-  if(!perms(ME().id).location){const ok=await askLocation();if(ok){await act({type:'perm',key:'location',value:true});startLocation()}}
-  if(myPos&&perms(ME().id).location)try{await api('/location',myPos)}catch(e){}
-  if(await act({type:'sos',note:$('sosNote').value.trim()},'Help alert sent to '+P().name)){$('sosNote').value='';go('home')}
-}
+function sendCheckin(){if(state.inviteStatus!=='connected'){toast('Reconnect first to send check-ins');return}state.checkins.unshift({id:uid(),from:me(),to:them(),mood,note:$('checkNote').value.trim(),ts:new Date().toISOString(),seen:false});$('checkNote').value='';save();render();toast(`Check-in sent to ${N(them())}`)}
+function replyCheckin(id){const c=state.checkins.find(x=>x.id===id);if(c){c.reply=true;c.seen=true;save();renderCheckins();toast('Sent ❤️ to '+N(c.from))}}
 
-// ---------- contacts ----------
-function renderContacts(){$('trustedList').innerHTML=C().contacts.length?C().contacts.map(c=>`<div class="card row nowrap"><div class="icon">${esc(c.name[0].toUpperCase())}</div><div class="grow"><b>${esc(c.name)}</b><div class="muted">${esc(c.kind)} · added by ${esc(nameOf(c.by))}</div></div><button class="btn small secondary" onclick="act({type:'contactRemove',id:'${c.id}'},'Removed')">Remove</button></div>`).join(''):'<div class="card muted">No trusted contacts yet.</div>'}
-async function addContact(){const n=$('contactName').value.trim();if(!n){toast('Type a name first',true);return}if(await act({type:'contactAdd',name:n,kind:$('contactType').value},n+' added'))$('contactName').value=''}
+function renderContacts(){$('trustedList').innerHTML=state.contacts.length?state.contacts.map((c,i)=>`<div class="card row nowrap"><div class="icon">${esc(c.name[0].toUpperCase())}</div><div class="grow"><b>${esc(c.name)}</b><div class="muted">${esc(c.type)}</div></div><button class="btn small secondary" onclick="removeContact(${i})">Remove</button></div>`).join(''):'<div class="card muted">No trusted contacts yet.</div>'}
+function addContact(){const n=$('contactName').value.trim();if(!n){toast('Type a name first');return}state.contacts.push({name:n,type:$('contactType').value});$('contactName').value='';save();render();toast(n+' added to trusted contacts')}
+function removeContact(i){const n=state.contacts.splice(i,1)[0].name;save();render();toast(n+' removed')}
 
-// ---------- history ----------
-function renderHistory(){
-  const sel=$('histWho'),w=sel.value||'all';
-  sel.innerHTML=`<option value="all">Both of you</option><option value="${ME().id}">${esc(ME().name)}</option><option value="${P().id}">${esc(P().name)}</option>`;sel.value=w;
-  sel.onchange=renderHistory;
-  const rows=C().events.filter(e=>e.movement&&(sel.value==='all'||e.who===sel.value));
-  $('movementHistoryList').innerHTML=rows.length?rows.slice(0,60).map(e=>`<div class="activity mv"><b>${esc(e.text)}</b><div class="muted">${when(e.ts)}</div></div>`).join(''):'<div class="card muted">No arrivals or departures saved in the last 30 days. Add safe places and share location to start.</div>';
-}
+function renderPlans(){document.querySelectorAll('.plan').forEach(p=>{p.classList.toggle('selected',p.dataset.plan===(state.plan||'annual'));p.onclick=()=>{state.plan=p.dataset.plan;save();renderPlans();renderHome()}})}
+function choosePlan(){if(!state.plan)state.plan='annual';save();renderHome();toast(`${state.plan==='monthly'?'Monthly':'Annual'} plan selected. Preview only, so no payment is taken.`)}
 
-// ---------- profile ----------
-function pickPhoto(){$('photoInput').value='';$('photoInput').click()}
-$('photoInput').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const img=new Image();img.onload=async()=>{const c=document.createElement('canvas'),Z=240,m=Math.min(img.width,img.height);c.width=c.height=Z;c.getContext('2d').drawImage(img,(img.width-m)/2,(img.height-m)/2,m,m,0,0,Z,Z);try{S=await api('/profile',{photo:c.toDataURL('image/jpeg',.8)});render();toast('Photo updated')}catch(err){toast(err.message,true)}};img.onerror=()=>toast('That file could not be read as an image',true);img.src=r.result};r.readAsDataURL(f)};
-async function saveName(){try{S=await api('/profile',{name:$('myName').value});render();toast('Name saved')}catch(e){toast(e.message,true)}}
-async function changePassword(){try{await api('/password',{current:$('pwCur').value,next:$('pwNew').value});$('pwCur').value=$('pwNew').value='';$('pwBox').hidden=true;toast('Password updated')}catch(e){toast(e.message,true)}}
-async function deleteAccount(){try{await api('/delete-account',{password:$('delPw').value});setToken(null);S=null;stopLocation();toast('Your account was deleted');authMode='signup';showAuth()}catch(e){toast(e.message,true)}}
+function resetAll(){store.clear();state=freshState();$('resetConfirm').hidden=true;toast('Everything cleared');go('welcome')}
+let tt;function toast(msg){const e=$('toast');e.textContent=msg;e.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('show'),3400)}
 
-// ---------- notifications ----------
-let vapidKey=null;
-function renderNotifState(){
-  const b=$('notifBtn'),n=$('notifNote');if(!b)return;
-  const standaloneIOS=/iphone|ipad/i.test(navigator.userAgent)&&!navigator.standalone;
-  if(!('Notification' in window)||!('serviceWorker' in navigator)||!('PushManager' in window)){n.textContent=standaloneIOS?'On iPhone, add OpenUS to your home screen first, then open it from there.':'Not supported in this browser';b.hidden=true;return}
-  if(!vapidKey){n.textContent='Not set up on the server yet';b.hidden=true;return}
-  const p=Notification.permission;b.hidden=p==='granted'||p==='denied';
-  n.textContent=p==='granted'?'On. You\'ll hear about check-ins, requests and alerts.':p==='denied'?'Blocked. Allow notifications for this site in your phone settings.':'Get alerted about check-ins, requests and arrivals';
-}
-async function enableNotifications(){
-  try{
-    const p=await Notification.requestPermission();if(p!=='granted'){renderNotifState();return}
-    const reg=await navigator.serviceWorker.ready;
-    let sub=await reg.pushManager.getSubscription();
-    if(!sub){const raw=atob(vapidKey.replace(/-/g,'+').replace(/_/g,'/')+'='.repeat((4-vapidKey.length%4)%4));sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:Uint8Array.from(raw,c=>c.charCodeAt(0))})}
-    await api('/push/subscribe',{subscription:sub.toJSON()});reg.active?.postMessage({type:'token',token});
-    toast('Notifications are on');
-  }catch(e){toast('Could not turn on notifications: '+e.message,true)}
-  renderNotifState();
-}
-async function resubscribe(){try{if(Notification.permission!=='granted'||!vapidKey)return;const reg=await navigator.serviceWorker.ready;const sub=await reg.pushManager.getSubscription();if(sub)await api('/push/subscribe',{subscription:sub.toJSON()})}catch(e){}}
-
-// ---------- install ----------
+/* install (works when hosted as a standalone web app) */
 let deferredInstall=null;
-addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstall=e;$('installButton').hidden=false});
-addEventListener('appinstalled',()=>{$('installButton').hidden=true;toast('OpenUS installed')});
-async function installOpenUS(){if(!deferredInstall)return;deferredInstall.prompt();try{await deferredInstall.userChoice}catch(e){}deferredInstall=null;$('installButton').hidden=true}
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstall=e;$('installButton').hidden=false;$('installButton2').hidden=false});
+window.addEventListener('appinstalled',()=>{$('installButton').hidden=true;$('installButton2').hidden=true;toast('OpenUS installed')});
+async function installOpenUS(){if(!deferredInstall){go('settings');return}deferredInstall.prompt();try{await deferredInstall.userChoice}catch(e){}deferredInstall=null}
 
-// ---------- sync loop ----------
-let polling=false;
-async function refresh(){
-  if(!token||polling)return;polling=true;
-  try{const s=await api('/state');const changed=!S||s.couple?.v!==S.couple?.v||JSON.stringify(s.partnerLoc)!==JSON.stringify(S.partnerLoc)||s.partner?.id!==S.partner?.id||s.partner?.photo!==S.partner?.photo||s.partner?.name!==S.partner?.name;
-    const wasPaired=!!(S&&S.couple&&S.partner);S=s;$('offline').classList.remove('show');
-    if(!wasPaired&&S.couple&&S.partner){toast('Connected with '+S.partner.name+' 🎉');cur='home';route()}else if(wasPaired&&!(S.couple&&S.partner)){stopLocation();cur='pair';route()}else if(cur==='loading')route();else if(changed){const keep=document.activeElement&&['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)?document.activeElement.id:null;render();if(keep&&$(keep))$(keep).focus()}
-    if(perms(S.me.id).location&&S.couple&&!S.couple.paused)startLocation();
-  }catch(e){if(!navigator.onLine||e instanceof TypeError)$('offline').classList.add('show')}
-  finally{polling=false}
-}
-setInterval(()=>{if(!document.hidden)refresh()},5000);
-document.addEventListener('visibilitychange',()=>{if(document.hidden)stopLocation();else{refresh();resubscribe()}});
-addEventListener('online',()=>{$('offline').classList.remove('show');refresh()});
-addEventListener('offline',()=>$('offline').classList.add('show'));
-
-// ---------- start ----------
-if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').then(()=>navigator.serviceWorker.ready).then(r=>r.active?.postMessage({type:'token',token})).catch(()=>{})}
-fetch('/api/config').then(r=>r.json()).then(j=>{vapidKey=j.vapidPublicKey;renderNotifState();resubscribe()}).catch(()=>{});
-if(token){go('loading');refresh()}else{authMode=inviteFromLink?'signup':'signup';showAuth()}
+go(state.setup?'role':'welcome');
 </script>
+
+<script>if('serviceWorker' in navigator){addEventListener('load',()=>navigator.serviceWorker.register('service-worker.js').catch(()=>{}))}</script>
+<script>/* OpenUS sync + live GPS add-on */window.OPENUS_SYNC={keys:['openusAppV2'],localFields:{openusAppV2:['role']},apply:()=>{state=load();render()},me:()=>({role:state.role,name:N(state.role)}),sharing:()=>state.permissions[state.role].location&&state.inviteStatus==='connected',places:()=>state.safety.places,radius:()=>state.safety.proxRadius,alertsOn:()=>state.safety.proximity,onMove:(n,ev,place)=>{recordMovement(n,ev);save();render()},toast:m=>toast(m),afterJoin:()=>go('role'),joinScreen:'welcome'};</script><script src="openus-sync.js"></script>
 </body></html>
