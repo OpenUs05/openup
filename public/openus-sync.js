@@ -4,6 +4,13 @@
    Each page sets window.OPENUS_SYNC before loading this file (see bottom of index.html). */
 (function () {
   'use strict';
+  // Fresh-start link: openus-app.netlify.app/?fresh clears everything saved on this phone
+  // (names, photos, data, sync) and reopens the app blank.
+  if (/[?&]fresh\b/.test(location.search)) {
+    try { ['openusAppV2', 'openusV2', 'openusSafetyDemo', 'openusSync', 'openusGPS', 'openusGpsSeen'].forEach((k) => localStorage.removeItem(k)); } catch (e) {}
+    location.replace(location.pathname);
+    return;
+  }
   const cfg = window.OPENUS_SYNC;
   if (!cfg) return;
   const GPS_KEY = 'openusGPS', META_KEY = 'openusSync';
